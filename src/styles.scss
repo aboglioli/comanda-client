@@ -1,3 +1,23 @@
 $fa-font-path: "../node_modules/font-awesome/fonts";
 @import "~font-awesome/scss/font-awesome";
 @import "~bootstrap/scss/bootstrap";
+
+body {
+  background-color: rgb(248, 248, 248);
+}
+
+#wrapper {
+  width: 100%;
+}
+
+#content {
+  min-height: 385px;
+  position: inherit;
+  margin: 0 0 0 250px;
+  padding: 5px;
+  border-left: 1px solid #e7e7e7;
+  background-color: #fff;
+  .card {
+    margin-bottom: 5px;
+  }
+}

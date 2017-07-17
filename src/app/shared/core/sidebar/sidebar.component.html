@@ -1,43 +1,38 @@
-<nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
-  <ul class="nav nav-pills flex-column">
-    <li class="nav-item">
-      <a class="nav-link active" href="#">Overview <span class="sr-only">(current)</span></a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Reports</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Analytics</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Export</a>
-    </li>
-  </ul>
+<div class="sidebar" role="navigation">
+  <div class="sidebar-nav">
+    <ul class="nav flex-column" id="side-menu">
+      <li class="nav-item sidebar-search">
+        <div class="input-group custom-search-form">
+          <input type="text" class="form-control" placeholder="Buscar...">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">
+              <i class="fa fa-search"></i>
+            </button>
+          </span>
+        </div>
+      </li>
 
-  <ul class="nav nav-pills flex-column">
-    <li class="nav-item">
-      <a class="nav-link" href="#">Nav item</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Nav item again</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">One more nav</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Another nav item</a>
-    </li>
-  </ul>
+      <li class="nav-item">
+        <a href="#" class="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a href="#"><i class="fa fa-edit fa-fw"></i> Productos</a>
+      </li>
 
-  <ul class="nav nav-pills flex-column">
-    <li class="nav-item">
-      <a class="nav-link" href="#">Nav item again</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">One more nav</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Another nav item</a>
-    </li>
-  </ul>
-</nav>
+      <li class="nav-item">
+        <a data-toggle="collapse" href="#secondLevel" aria-expanded="false" aria-controls="collapseExample">
+          <i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span>
+        </a>
+        <ul class="collapse nav-second-level" id="secondLevel">
+          <li class="nav-item">
+            <a href="#">Second Level Item</a>
+          </li>
+          <li class="nav-item">
+            <a href="#">Second Level Item</a>
+          </li>
+        </ul>
+        <!-- /.nav-second-level -->
+      </li>
+    </ul>
+  </div>
+</div>
