@@ -4,12 +4,14 @@ import { CommonModule } from '@angular/common';
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
 import { SharedModule } from '../shared/shared.module';
+import { ProductModule } from './product/product.module';
 
 @NgModule({
   imports: [
     CommonModule,
     MainRoutingModule,
-    SharedModule
+    SharedModule,
+    ProductModule
   ],
   declarations: [MainComponent]
 })

@@ -8,25 +8,15 @@
         </div>
       </li>
 
-      <li class="nav-item">
-        <a href="#" class="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-      </li>
-      <li class="nav-item">
-        <a href="#"><i class="fa fa-edit fa-fw"></i> Productos</a>
-      </li>
-      <li class="nav-item">
-        <a data-toggle="collapse" href="#secondLevel" aria-expanded="false" aria-controls="collapseExample">
-          <i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span>
+      <li *ngFor="let item of sidebar" class="nav-item">
+        <a data-toggle="collapse" [href]="'#' + item.name" aria-expanded="false" aria-controls="collapseExample">
+          <i [class]="'fa fa-' + item.icon + ' fa-fw'"></i> {{item.name}}<span class="fa arrow"></span>
         </a>
-        <ul class="collapse nav-second-level" id="secondLevel">
-          <li class="nav-item">
-            <a href="#">Second Level Item</a>
-          </li>
-          <li class="nav-item">
-            <a href="#">Second Level Item</a>
+        <ul class="collapse nav-second-level" [id]="item.name">
+          <li *ngFor="let child of item.items" class="nav-item">
+            <a [routerLink]="[child.url]">{{child.name}}</a>
           </li>
         </ul>
-        <!-- /.nav-second-level -->
       </li>
 
     </ul>
