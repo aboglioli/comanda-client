@@ -20,4 +20,8 @@ body {
   .card {
     margin-bottom: 5px;
   }
+  @include media-breakpoint-down(sm) {
+    border: none;
+    margin: 0;
+  }
 }

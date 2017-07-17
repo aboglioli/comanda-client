@@ -1,3 +1,5 @@
+@import "~bootstrap/scss/bootstrap";
+
 .sidebar {
   z-index: 1;
   position: absolute;
@@ -7,6 +9,11 @@
   overflow-x: hidden;
   overflow-y: auto;
   background-color: rgb(248, 248, 248);
+  @include media-breakpoint-down(md) {
+    position: relative;
+    top: 0;
+    width: 100%;
+  }
   .nav {
     .nav-item {
       border-bottom: 1px solid #e7e7e7;
@@ -36,6 +43,9 @@
             }
           }
         }
+      }
+      &:last-child {
+        border: none;
       }
     }
   }
