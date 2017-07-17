@@ -9,6 +9,13 @@
     .navbar-brand {
       display: none;
     }
+    .navbar-nav {
+      flex-direction: row;
+      .nav-item {
+        flex: 1;
+        text-align: center;
+      }
+    }
   }
   .navbar-nav {
     .nav-item {
