@@ -28,7 +28,7 @@
           float: right;
           margin-top: 4px;
           &:before {
-            content: "\f104";
+            content: "\f105";
           }
         }
         &.active, &:hover {
@@ -44,9 +44,6 @@
           }
         }
       }
-      /* &:last-child { */
-      /*   border: none; */
-      /* } */
     }
   }
   .nav-second-level {
@@ -58,8 +55,6 @@
       }
     }
   }
-
-
   .sidebar-search {
     padding: 15px;
   }

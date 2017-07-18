@@ -18,10 +18,11 @@ body {
   padding: 5px;
   border-left: 1px solid #e7e7e7;
   background-color: #fff;
+  overflow: auto;
   .card {
     margin-bottom: 5px;
   }
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
     border: none;
     margin: 0;
   }

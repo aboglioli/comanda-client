@@ -6,6 +6,7 @@ import { MainComponent } from './main.component';
 import { SharedModule } from '../shared/shared.module';
 import { ProductModule } from './product/product.module';
 import { UserModule } from './user/user.module';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { UserModule } from './user/user.module';
     ProductModule,
     UserModule
   ],
-  declarations: [MainComponent]
+  declarations: [MainComponent, HomeComponent]
 })
 export class MainModule { }
