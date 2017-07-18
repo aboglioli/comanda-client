@@ -1,14 +1,18 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
 
+import { AccountService } from './services';
 import { NavbarComponent } from './core/navbar/navbar.component';
 import { SidebarComponent } from './core/sidebar/sidebar.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    HttpModule,
   ],
   declarations: [
     NavbarComponent,
@@ -16,6 +20,7 @@ import { SidebarComponent } from './core/sidebar/sidebar.component';
   ],
   exports: [
     RouterModule,
+    ReactiveFormsModule,
     NavbarComponent,
     SidebarComponent
   ]
@@ -25,7 +30,7 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
-
+        AccountService
       ]
     }
   }
