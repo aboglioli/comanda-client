@@ -8,13 +8,25 @@
         </div>
       </li>
 
+      <li class="nav-item">
+        <a [routerLink]="['/']"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact: true}">
+          <i class="fa fa-dashboard fa-fw"></i> Resumen
+        </a>
+      </li>
+
       <li *ngFor="let item of sidebar" class="nav-item">
         <a data-toggle="collapse" [href]="'#' + item.name" aria-expanded="false" aria-controls="collapseExample">
           <i [class]="'fa fa-' + item.icon + ' fa-fw'"></i> {{item.name}}<span class="fa arrow"></span>
         </a>
         <ul class="collapse nav-second-level" [id]="item.name">
           <li *ngFor="let child of item.items" class="nav-item">
-            <a [routerLink]="[child.url]">{{child.name}}</a>
+            <a [routerLink]="[child.url]"
+               routerLinkActive="active"
+               [routerLinkActiveOptions]="{exact: true}">
+              {{child.name}}
+            </a>
           </li>
         </ul>
       </li>

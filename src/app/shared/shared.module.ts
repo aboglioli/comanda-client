@@ -1,10 +1,10 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 import { CommonModule } from '@angular/common';
 
-import { AccountService } from './services';
+import { HttpService, CacheService, AccountService, UserService } from './services';
 import { NavbarComponent } from './core/navbar/navbar.component';
 import { SidebarComponent } from './core/sidebar/sidebar.component';
 
@@ -30,7 +30,16 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
-        AccountService
+        {
+          provide: Http,
+          useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, cacheService: CacheService) => {
+            return new HttpService(xhrBackend, requestOptions, cacheService);
+          },
+          deps: [XHRBackend, RequestOptions, CacheService]
+        },
+        CacheService,
+        AccountService,
+        UserService
       ]
     }
   }

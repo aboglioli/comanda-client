@@ -31,7 +31,7 @@
             content: "\f104";
           }
         }
-        &.active, &:focus, &:hover {
+        &.active, &:hover {
           text-decoration: none;
           background-color: #eee;
           color: #23527c;
@@ -44,9 +44,9 @@
           }
         }
       }
-      &:last-child {
-        border: none;
-      }
+      /* &:last-child { */
+      /*   border: none; */
+      /* } */
     }
   }
   .nav-second-level {

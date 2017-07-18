@@ -2,10 +2,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { MainComponent } from './main.component';
+
+// Product
 import { ProductComponent } from './product/product.component';
 import { RawComponent } from './product/raw/raw.component';
 import { SingleComponent } from './product/single/single.component';
 import { CombinationComponent } from './product/combination/combination.component';
+
+// User
+import { UserComponent } from './user/user.component';
 
 const routes: Routes = [
   {
@@ -13,7 +18,7 @@ const routes: Routes = [
     component: MainComponent,
     children: [
       {
-        path: 'product',
+        path: 'products',
         component: ProductComponent,
         children: [
           {
@@ -29,6 +34,10 @@ const routes: Routes = [
             component: CombinationComponent
           }
         ]
+      },
+      {
+        path: 'users',
+        component: UserComponent
       }
     ]
   }

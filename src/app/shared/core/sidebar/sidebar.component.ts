@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Sidebar } from '../../../models/sidebar.interface';
+import { Sidebar } from '../../../models';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,15 +20,25 @@ export class SidebarComponent implements OnInit {
         items: [
           {
             name: 'Insumos',
-            url: '/product/raw'
+            url: '/products/raw'
           },
           {
             name: 'Productos',
-            url: '/product/single'
+            url: '/products/single'
           },
           {
             name: 'Combinación',
-            url: '/product/combination'
+            url: '/products/combination'
+          }
+        ]
+      },
+      {
+        name: 'Usuarios',
+        icon: 'users',
+        items: [
+          {
+            name: 'Usuarios',
+            url: '/users'
           }
         ]
       }

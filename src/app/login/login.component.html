@@ -2,7 +2,7 @@
     <div class="card">
       <div class="card-block">
         <h4 class="card-title">Login</h4>
-        <form [formGroup]="form" class="form-horizontal" role="form" (submit)="$event.preventDefault(); login()">
+        <form [formGroup]="form" class="form-horizontal pt-3" role="form" (submit)="$event.preventDefault(); login()">
           <div class="row">
             <div *ngIf="error" class="col-12">
               <div class="form-control-feedback">
