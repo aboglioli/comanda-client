@@ -1,2 +1,2 @@
-export * from './sidebar.interface';
-export * from './user.interface';
+export { Sidebar } from './sidebar.interface';
+export { User } from './user.interface';

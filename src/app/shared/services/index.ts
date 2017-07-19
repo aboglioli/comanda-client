@@ -1,4 +1,4 @@
-export * from './http.service';
-export * from './cache.service';
-export * from './account.service';
-export * from './user.service';
+export { HttpService } from './http.service';
+export { CacheService }  from './cache.service';
+export { AccountService } from './account.service';
+export { UserService } from './user.service';

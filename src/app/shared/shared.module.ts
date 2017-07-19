@@ -8,6 +8,10 @@ import { HttpService, CacheService, AccountService, UserService } from './servic
 import { NavbarComponent } from './core/navbar/navbar.component';
 import { SidebarComponent } from './core/sidebar/sidebar.component';
 
+export function httpServiceFactory(xhrBackend: XHRBackend, requestOptions: RequestOptions, cacheService: CacheService) {
+  return new HttpService(xhrBackend, requestOptions, cacheService);
+}
+
 @NgModule({
   imports: [
     CommonModule,
@@ -32,15 +36,13 @@ export class SharedModule {
       providers: [
         {
           provide: Http,
-          useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, cacheService: CacheService) => {
-            return new HttpService(xhrBackend, requestOptions, cacheService);
-          },
+          useFactory: httpServiceFactory,
           deps: [XHRBackend, RequestOptions, CacheService]
         },
         CacheService,
         AccountService,
         UserService
       ]
-    }
+    };
   }
 }

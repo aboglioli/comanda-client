@@ -1,37 +1,6 @@
-<div class="card">
-  <div class="card-header">
-    <div class="input-group custom-search-form">
-      <input type="text" class="form-control" placeholder="Filtrar...">
-    </div>
-  </div>
-  <div class="card-block p-0">
-    <table class="table m-0">
-      <thead class="thead-default">
-        <tr>
-          <th>Usuario</th>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>E-Mail</th>
-          <th>Roles</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users">
-          <th scope="row">{{user.user}}</th>
-          <td>{{user.name}}</td>
-          <td>{{user.name}}</td>
-          <td>{{user.email}}</td>
-          <td>{{user.scope.join(',')}}</td>
-          <td>
-            <button type="button" class="btn btn-link btn-sm"><i class="fa fa-edit"></i></button>
-            <button type="button" class="btn btn-link btn-sm"><i class="fa fa-trash"></i></button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="card-footer text-right">
-    <a href="#" class="card-link">Crear nuevo</a>
-  </div>
-</div>
+<ng2-smart-table [settings]="settings"
+                 [source]="users"
+                 (createConfirm)="create($event)"
+                 (editConfirm)="edit($event)"
+                 (deleteConfirm)="delete($event)">
+</ng2-smart-table>
