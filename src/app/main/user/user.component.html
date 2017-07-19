@@ -1,14 +1,18 @@
-<ng2-smart-table [settings]="settings"
-                 [source]="users"
-                 (createConfirm)="onCreate($event)"
-                 (editConfirm)="onEdit($event)"
-                 (deleteConfirm)="onDelete($event)">
-</ng2-smart-table>
-
 <div class="card">
-  <div class="card-block">
-    <p class="card-text">
-      <span class="text-danger">*</span> Dejar contraseña en blanco para no modificar
-    </p>
+  <div class="card-header">Usuarios</div>
+
+  <div class="card-block p-0">
+    <div class="overflow">
+      <ng2-smart-table [settings]="settings"
+                      [source]="users"
+                      (createConfirm)="onCreate($event)"
+                      (editConfirm)="onEdit($event)"
+                      (deleteConfirm)="onDelete($event)">
+      </ng2-smart-table>
+    </div>
+  </div>
+
+  <div class="card-footer text-muted">
+    <span class="text-danger">*</span> Dejar contraseña en blanco para no modificar
   </div>
 </div>

@@ -2,7 +2,7 @@ export const config = {
   ng2SmartTableDefaultSettings: {
     attr: {
       id: '',
-      class: 'ng2-smart-table table table-bordered',
+      class: 'ng2-smart-table table',
     },
     actions: {
       columnTitle: 'Acciones',

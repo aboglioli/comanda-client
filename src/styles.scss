@@ -18,7 +18,8 @@ body {
   padding: 5px;
   border-left: 1px solid #e7e7e7;
   background-color: #fff;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   .card {
     margin-bottom: 5px;
   }
@@ -30,6 +31,7 @@ body {
 
 // ng2-smart-table
 .ng2-smart-table {
+  margin: 0;
   min-width: 800px;
 
   select.form-control:not([size]):not([multiple]) {
@@ -40,4 +42,9 @@ body {
   .ng2-smart-actions {
     vertical-align: middle;
   }
+}
+
+// utils
+.overflow {
+  overflow: auto;
 }

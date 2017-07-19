@@ -23,24 +23,40 @@ export class HttpService extends Http {
     this.beforeRequest();
 
     url = this.updateUrl(url);
+
     return super.get(url, this.getRequestOptionArgs(options))
       .catch(this.onCatch)
-      .do(() => this.afterRequest())
+      .do(() => this.afterRequest());
   }
 
   post(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
+    this.beforeRequest();
+
     url = this.updateUrl(url);
-    return super.post(url, body, this.getRequestOptionArgs(options));
+
+    return super.post(url, body, this.getRequestOptionArgs(options))
+      .catch(this.onCatch)
+      .do(() => this.afterRequest());
   }
 
   put(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
+    this.beforeRequest();
+
     url = this.updateUrl(url);
-    return super.put(url, body, this.getRequestOptionArgs(options));
+
+    return super.put(url, body, this.getRequestOptionArgs(options))
+      .catch(this.onCatch)
+      .do(() => this.afterRequest());
   }
 
   delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
+    this.beforeRequest();
+
     url = this.updateUrl(url);
-    return super.delete(url, this.getRequestOptionArgs(options));
+
+    return super.delete(url, this.getRequestOptionArgs(options))
+      .catch(this.onCatch)
+      .do(() => this.afterRequest());
   }
 
   private updateUrl(req: string) {
@@ -73,6 +89,7 @@ export class HttpService extends Http {
   }
 
   private onCatch(error: any, caught: Observable<any>): Observable<any> {
+    console.log(error);
     return Observable.throw(error);
   }
 }

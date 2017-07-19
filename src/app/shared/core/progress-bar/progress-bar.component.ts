@@ -24,6 +24,7 @@ export class ProgressBarComponent implements OnInit {
           }
         }, 50);
       } else {
+        this.width = 0;
         clearInterval(this.lastInterval);
       }
     });
