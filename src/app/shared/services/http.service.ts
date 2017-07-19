@@ -4,10 +4,14 @@ import { Observable } from "rxjs/Observable";
 
 import { environment } from '../../../environments/environment';
 import { CacheService } from './cache.service';
+import { LoadingService } from './loading.service';
 
 @Injectable()
 export class HttpService extends Http {
-  constructor(backend: ConnectionBackend, defaultOptions: RequestOptions, private cache: CacheService) {
+  constructor(backend: ConnectionBackend,
+              defaultOptions: RequestOptions,
+              private cache: CacheService,
+              private loadingService: LoadingService) {
     super(backend, defaultOptions);
   }
 
@@ -16,8 +20,12 @@ export class HttpService extends Http {
   }
 
   get(url: string, options?: RequestOptionsArgs): Observable<Response> {
+    this.beforeRequest();
+
     url = this.updateUrl(url);
-    return super.get(url, this.getRequestOptionArgs(options));
+    return super.get(url, this.getRequestOptionArgs(options))
+      .catch(this.onCatch)
+      .do(() => this.afterRequest())
   }
 
   post(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
@@ -54,5 +62,17 @@ export class HttpService extends Http {
     }
 
     return options;
+  }
+
+  private beforeRequest() {
+    this.loadingService.showLoader();
+  }
+
+  private afterRequest() {
+    this.loadingService.hideLoader();
+  }
+
+  private onCatch(error: any, caught: Observable<any>): Observable<any> {
+    return Observable.throw(error);
   }
 }

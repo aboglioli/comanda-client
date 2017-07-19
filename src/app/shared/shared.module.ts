@@ -4,14 +4,14 @@ import { RouterModule } from '@angular/router';
 import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 import { CommonModule } from '@angular/common';
 
-import { HttpService, CacheService, AccountService, UserService } from './services';
+import { HttpService, CacheService, LoadingService, AccountService, UserService } from './services';
 import { AuthGuard } from './guards/auth.guard';
 import { NavbarComponent } from './core/navbar/navbar.component';
 import { SidebarComponent } from './core/sidebar/sidebar.component';
 import { ProgressBarComponent } from './core/progress-bar/progress-bar.component';
 
-export function httpServiceFactory(xhrBackend: XHRBackend, requestOptions: RequestOptions, cacheService: CacheService) {
-  return new HttpService(xhrBackend, requestOptions, cacheService);
+export function httpServiceFactory(xhrBackend: XHRBackend, requestOptions: RequestOptions, cacheService: CacheService, loadingService: LoadingService) {
+  return new HttpService(xhrBackend, requestOptions, cacheService, loadingService);
 }
 
 @NgModule({
@@ -42,8 +42,9 @@ export class SharedModule {
         {
           provide: Http,
           useFactory: httpServiceFactory,
-          deps: [XHRBackend, RequestOptions, CacheService]
+          deps: [XHRBackend, RequestOptions, CacheService, LoadingService]
         },
+        LoadingService,
         CacheService,
         AccountService,
         UserService

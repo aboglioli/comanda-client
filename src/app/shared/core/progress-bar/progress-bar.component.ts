@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { LoadingService } from '../../services';
+
 @Component({
   selector: 'app-progress-bar',
   templateUrl: './progress-bar.component.html',
@@ -8,15 +10,24 @@ import { Component, OnInit } from '@angular/core';
 export class ProgressBarComponent implements OnInit {
   width = 0;
 
-  constructor() { }
+  private lastInterval;
+
+  constructor(private loadingService: LoadingService) { }
 
   ngOnInit() {
-    setInterval(() => {
-      this.width += 3;
-      if(this.width > 100) {
-        this.width = 0;
+    this.loadingService.onLoader().subscribe(show => {
+      if(show) {
+        this.lastInterval = setInterval(() => {
+          this.width += 3;
+          if(this.width > 100) {
+            this.width = 0;
+          }
+        }, 50);
+      } else {
+        clearInterval(this.lastInterval);
       }
-    }, 50);
+    });
+
   }
 
 }

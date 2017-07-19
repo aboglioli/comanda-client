@@ -1,3 +1,10 @@
+<ng2-smart-table [settings]="settings"
+                 [source]="users"
+                 (createConfirm)="onCreate($event)"
+                 (editConfirm)="onEdit($event)"
+                 (deleteConfirm)="onDelete($event)">
+</ng2-smart-table>
+
 <div class="card">
   <div class="card-block">
     <p class="card-text">
@@ -5,10 +12,3 @@
     </p>
   </div>
 </div>
-
-<ng2-smart-table [settings]="settings"
-                 [source]="users"
-                 (createConfirm)="onCreate($event)"
-                 (editConfirm)="onEdit($event)"
-                 (deleteConfirm)="onDelete($event)">
-</ng2-smart-table>
