@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 
 import { UserService } from '../../shared/services';
 import { User } from '../../models';
-import { environment } from '../../../environments/environment';
+import { config } from '../../config';
 
 @Component({
   selector: 'app-user',
@@ -40,10 +40,10 @@ export class UserComponent implements OnInit {
         this.users = users;
       })
 
-    this.settings = _.assign(this.settings, environment.ng2SmartTableDefaultSettings);
+    this.settings = _.assign(this.settings, config.ng2SmartTableDefaultSettings);
   }
 
-  create(event) {
+  onCreate(event) {
     const user = this.materializeUser(event.newData);
 
     this.userService.post(user)
@@ -52,18 +52,23 @@ export class UserComponent implements OnInit {
       });
   }
 
-  edit(event) {
+  onEdit(event) {
+    const userId = event.newData._id;
     const user = this.materializeUser(event.newData);
-    console.log(user);
 
-    event.confirm.resolve(event.newData);
+    this.userService.put(userId, user)
+      .subscribe(user => {
+        event.confirm.resolve(user);
+      });
   }
 
-  delete(event) {
-    const user = this.materializeUser(event.newData);
-    console.log(user);
+  onDelete(event) {
+    const userId = event.data._id;
 
-    event.confirm.resolve();
+    this.userService.delete(userId)
+      .subscribe(() => {
+        event.confirm.resolve();
+      });
   }
 
   private materializeUser(data): User {
@@ -74,6 +79,10 @@ export class UserComponent implements OnInit {
         delete user[prop];
       }
     }
+
+    delete user._id;
+    delete user.created_at;
+    delete user.updated_at;
 
     return user;
   }

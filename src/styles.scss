@@ -30,8 +30,14 @@ body {
 
 // ng2-smart-table
 .ng2-smart-table {
+  min-width: 800px;
+
   select.form-control:not([size]):not([multiple]) {
     padding: .375em .75em;
     height: 30px;
+  }
+
+  .ng2-smart-actions {
+    vertical-align: middle;
   }
 }

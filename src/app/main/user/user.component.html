@@ -1,6 +1,14 @@
+<div class="card">
+  <div class="card-block">
+    <p class="card-text">
+      <span class="text-danger">*</span> Dejar contraseña en blanco para no modificar
+    </p>
+  </div>
+</div>
+
 <ng2-smart-table [settings]="settings"
                  [source]="users"
-                 (createConfirm)="create($event)"
-                 (editConfirm)="edit($event)"
-                 (deleteConfirm)="delete($event)">
+                 (createConfirm)="onCreate($event)"
+                 (editConfirm)="onEdit($event)"
+                 (deleteConfirm)="onDelete($event)">
 </ng2-smart-table>

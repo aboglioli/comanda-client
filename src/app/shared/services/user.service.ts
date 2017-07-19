@@ -25,12 +25,15 @@ export class UserService {
       .map(res => <User>res.json());
   }
 
-  put(user: User): Observable<User> {
-    return this.http.put('/users/' + user._id, JSON.stringify(user))
+  put(userId: string, user: User): Observable<User> {
+    return this.http.put('/users/' + userId, JSON.stringify(user))
       .map(res => <User>res.json());
   }
 
-  // delete()
+  delete(userId: string): Observable<User> {
+    return this.http.delete('/users/' + userId)
+      .map(res => <User>res.json());
+  }
 
   getMe(): Observable<User> {
     return this.http.get('/users/me')
