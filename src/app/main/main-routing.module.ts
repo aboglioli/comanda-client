@@ -43,8 +43,14 @@ const routes: Routes = [
         component: UserComponent
       },
       {
+        path: '',
+        component: HomeComponent,
+        pathMatch: 'full'
+      },
+      {
         path: '**',
-        component: HomeComponent
+        redirectTo: '/login',
+        pathMatch: 'full'
       }
     ]
   }
