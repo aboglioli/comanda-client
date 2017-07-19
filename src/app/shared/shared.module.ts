@@ -5,6 +5,7 @@ import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 import { CommonModule } from '@angular/common';
 
 import { HttpService, CacheService, AccountService, UserService } from './services';
+import { AuthGuard } from './guards/auth.guard';
 import { NavbarComponent } from './core/navbar/navbar.component';
 import { SidebarComponent } from './core/sidebar/sidebar.component';
 
@@ -34,6 +35,7 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
+        AuthGuard,
         {
           provide: Http,
           useFactory: httpServiceFactory,

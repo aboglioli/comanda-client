@@ -50,10 +50,6 @@ export class UserComponent implements OnInit {
       .subscribe(user => {
         event.confirm.resolve(user);
       });
-
-    setTimeout(() => {
-      console.log(this.users);
-    }, 2000);
   }
 
   edit(event) {

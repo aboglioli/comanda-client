@@ -11,6 +11,7 @@ export class CacheService  {
 
   set(key: string, value: any, persist = false): void {
     this.cache[key] = value;
+
     if(persist) {
       this.persist(key, value);
     }
@@ -22,6 +23,11 @@ export class CacheService  {
 
   has(key: string): boolean {
     return !!this.cache[key];
+  }
+
+  delete(key: string): void {
+    delete this.cache[key];
+    localStorage.removeItem(key);
   }
 
   persist(key: string, value: any) {

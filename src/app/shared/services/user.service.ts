@@ -30,6 +30,8 @@ export class UserService {
       .map(res => <User>res.json());
   }
 
+  // delete()
+
   getMe(): Observable<User> {
     return this.http.get('/users/me')
       .map(res => <User>res.json());

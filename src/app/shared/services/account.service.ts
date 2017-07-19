@@ -11,7 +11,11 @@ export class AccountService {
   private authToken: string;
 
   constructor(private http: Http,
-              private cache: CacheService) { }
+              private cache: CacheService) {
+    if(this.cache.has('authToken')) {
+      this.authToken = this.cache.get('authToken');
+    }
+  }
 
   getAuthToken(): string {
     return this.authToken;
@@ -37,6 +41,7 @@ export class AccountService {
 
   logout() {
     this.authToken = null;
+    this.cache.delete('authToken');
   }
 
 }

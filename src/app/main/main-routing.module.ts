@@ -15,11 +15,20 @@ import { CombinationComponent } from './product/combination/combination.componen
 // User
 import { UserComponent } from './user/user.component';
 
+// Guards
+import { AuthGuard } from '../shared/guards/auth.guard';
+
 const routes: Routes = [
   {
     path: '',
     component: MainComponent,
+    canActivate: [AuthGuard],
     children: [
+      {
+        path: '',
+        component: HomeComponent,
+        pathMatch: 'full'
+      },
       {
         path: 'products',
         component: ProductComponent,
@@ -41,11 +50,6 @@ const routes: Routes = [
       {
         path: 'users',
         component: UserComponent
-      },
-      {
-        path: '',
-        component: HomeComponent,
-        pathMatch: 'full'
       },
       {
         path: '**',
