@@ -14,10 +14,6 @@ export class UserComponent implements OnInit {
   users: User[];
   settings = {
     columns: {
-      _id: {
-        title: 'ID',
-        editable: false
-      },
       user: {
         title: 'Usuario'
       },
@@ -48,22 +44,42 @@ export class UserComponent implements OnInit {
   }
 
   create(event) {
-    const user = <User>event.newData;
-    console.log(user);
+    const user = this.materializeUser(event.newData);
 
-    // if(event.newData)
+    this.userService.post(user)
+      .subscribe(user => {
+        event.confirm.resolve(user);
+      });
 
-    event.confirm.resolve(event.newData);
+    setTimeout(() => {
+      console.log(this.users);
+    }, 2000);
   }
 
   edit(event) {
-    event.newData.scope = ['admin', event.newData.scope];
-    console.log(event);
+    const user = this.materializeUser(event.newData);
+    console.log(user);
+
     event.confirm.resolve(event.newData);
   }
 
   delete(event) {
+    const user = this.materializeUser(event.newData);
+    console.log(user);
+
     event.confirm.resolve();
+  }
+
+  private materializeUser(data): User {
+    const user = <User>data;
+
+    for(let prop in user) {
+      if(!user[prop]) {
+        delete user[prop];
+      }
+    }
+
+    return user;
   }
 
 }
