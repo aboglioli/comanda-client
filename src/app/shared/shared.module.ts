@@ -8,6 +8,7 @@ import { HttpService, CacheService, AccountService, UserService } from './servic
 import { AuthGuard } from './guards/auth.guard';
 import { NavbarComponent } from './core/navbar/navbar.component';
 import { SidebarComponent } from './core/sidebar/sidebar.component';
+import { ProgressBarComponent } from './core/progress-bar/progress-bar.component';
 
 export function httpServiceFactory(xhrBackend: XHRBackend, requestOptions: RequestOptions, cacheService: CacheService) {
   return new HttpService(xhrBackend, requestOptions, cacheService);
@@ -21,13 +22,15 @@ export function httpServiceFactory(xhrBackend: XHRBackend, requestOptions: Reque
   ],
   declarations: [
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    ProgressBarComponent
   ],
   exports: [
     RouterModule,
     ReactiveFormsModule,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    ProgressBarComponent
   ]
 })
 export class SharedModule {
