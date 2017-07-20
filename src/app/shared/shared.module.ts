@@ -10,16 +10,17 @@ import {
   LoadingService,
   AccountService,
   UserService,
-  NotificationService
-}
-from './services';
+  NotificationService,
+  ProductService
+} from './services';
 import { AuthGuard } from './guards/auth.guard';
 import { NavbarComponent } from './core/navbar/navbar.component';
 import { SidebarComponent } from './core/sidebar/sidebar.component';
 import { ProgressBarComponent } from './core/progress-bar/progress-bar.component';
 import { NotificationComponent } from './core/notification/notification.component';
 
-export function httpServiceFactory(xhrBackend: XHRBackend, requestOptions: RequestOptions, cacheService: CacheService, loadingService: LoadingService, notificationService: NotificationService) {
+export function httpServiceFactory(xhrBackend: XHRBackend, requestOptions: RequestOptions,
+                                   cacheService: CacheService, loadingService: LoadingService, notificationService: NotificationService) {
   return new HttpService(xhrBackend, requestOptions, cacheService, loadingService, notificationService);
 }
 
@@ -59,7 +60,8 @@ export class SharedModule {
         NotificationService,
         CacheService,
         AccountService,
-        UserService
+        UserService,
+        ProductService
       ]
     };
   }

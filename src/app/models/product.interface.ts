@@ -3,13 +3,13 @@ export interface Product {
   name?: string;
   description?: string;
   type?: string;
-  price?: [{
+  price?: {
       value?: number;
-      quantity: [{
+      quantity: {
           value?: number;
           unit?: string;
-      }]
-  }];
+      }
+  };
   subproducts?: [{
       quantity?: [{
           value?: number;
