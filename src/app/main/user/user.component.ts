@@ -24,7 +24,16 @@ export class UserComponent implements OnInit {
         title: 'Email',
       },
       scope: {
-        title: 'Rol'
+        title: 'Rol',
+        editor: {
+          type: 'list',
+          config: {
+            selectText: 'Seleccionar rol',
+            list: [
+              {value: 'admin', title: 'Administrador'}
+            ],
+          },
+        },
       },
       password: {
         title: 'Contraseña'
@@ -47,7 +56,29 @@ export class UserComponent implements OnInit {
   onCreate(event) {
     const user = this.materializeUser(event.newData);
 
+    const required = [];
 
+    if(!user.user) {
+      required.push('usuario');
+    }
+
+    if(!user.password) {
+      required.push('contraseña');
+    }
+
+    if(required.length > 0) {
+      return this.notificationService.notify('Se require ' + required.join(', '), 'danger');
+    }
+
+    if(user.email) {
+      const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+      if(!emailRegex.test(user.email)) {
+        return this.notificationService.notify('Email inválido', 'danger');
+      }
+    }
+
+    user.scope = event.newData.scope ? [event.newData.scope] : [];
 
     this.userService.post(user)
       .subscribe(user => {
@@ -58,6 +89,28 @@ export class UserComponent implements OnInit {
   onEdit(event) {
     const userId = event.newData._id;
     const user = this.materializeUser(event.newData);
+
+    const required = [];
+
+    if(!user.user) {
+      required.push('usuario');
+    }
+
+    if(required.length > 0) {
+      return this.notificationService.notify('Se require ' + required.join(', '), 'danger');
+    }
+
+    if(user.email) {
+      const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+      if(!emailRegex.test(user.email)) {
+        return this.notificationService.notify('Email inválido', 'danger');
+      }
+    }
+
+    if(typeof user.scope === 'string') {
+      user.scope = [user.scope];
+    }
 
     this.userService.put(userId, user)
       .subscribe(user => {
