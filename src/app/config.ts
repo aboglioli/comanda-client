@@ -31,5 +31,68 @@ export const config = {
       confirmDelete: true,
     },
     noDataMessage: 'No existen datos'
+  },
+  units: {
+    mass: [
+      {
+        unit: "mg",
+        multiplier: 0.001
+      },
+      {
+        unit: "cg",
+        multiplier: 0.01
+      },
+      {
+        unit: "dg",
+        multiplier: 0.1
+      },
+      {
+        unit: "g",
+        multiplier: 1
+      },
+      {
+        unit: "dag",
+        multiplier: 10
+      },
+      {
+        unit: "hg",
+        multiplier: 100
+      },
+      {
+        unit: "kg",
+        multiplier: 1000
+      }
+    ],
+    volume: [
+      {
+        unit: "ml",
+        multiplier: 0.001
+      },
+      {
+        unit: "cl",
+        multiplier: 0.01
+      },
+      {
+        unit: "dl",
+        multiplier: 0.1
+      },
+      {
+        unit: "l",
+        multiplier: 1
+      },
+      {
+        unit: "dal",
+        multiplier: 10
+      },
+      {
+        unit: "hl",
+        multiplier: 100
+      },
+      {
+        unit: "kl",
+        multiplier: 1000
+      }
+    ],
+    unit: {unit: "u"}
   }
 };

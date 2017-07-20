@@ -34,16 +34,7 @@ export class RawComponent implements OnInit {
           type: 'list',
           config: {
             selectText: 'Seleccionar',
-            list: [
-              {
-                title: 'kg',
-                value: 'kg',
-              },
-              {
-                title: 'l',
-                value: 'l',
-              }
-            ],
+            list: [],
           }
         }
       }
@@ -54,6 +45,11 @@ export class RawComponent implements OnInit {
               private notificationService: NotificationService) { }
 
   ngOnInit() {
+    this.settings.columns.unit.editor.config.list = [...config.units.mass, ...config.units.volume, config.units.unit]
+      .map(unit => {
+        return {title: unit.unit, value: unit.unit};
+      });
+
     this.productService.get().subscribe(raws => {
       this.raws = raws;
       this.data = raws.map(raw => this.desmaterializeRaw(raw));
