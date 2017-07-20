@@ -1,3 +1,5 @@
-<p>
-  single works!
-</p>
+<ng2-smart-table [settings]="settings"
+                [source]="data"
+                (createConfirm)="onCreate($event)"
+                (editConfirm)="onEdit($event)"
+                (deleteConfirm)="onDelete($event)">
