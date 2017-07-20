@@ -18,6 +18,7 @@ import { NavbarComponent } from './core/navbar/navbar.component';
 import { SidebarComponent } from './core/sidebar/sidebar.component';
 import { ProgressBarComponent } from './core/progress-bar/progress-bar.component';
 import { NotificationComponent } from './core/notification/notification.component';
+import { SearchInputComponent } from './core/search-input/search-input.component';
 
 export function httpServiceFactory(xhrBackend: XHRBackend, requestOptions: RequestOptions,
                                    cacheService: CacheService, loadingService: LoadingService, notificationService: NotificationService) {
@@ -29,12 +30,14 @@ export function httpServiceFactory(xhrBackend: XHRBackend, requestOptions: Reque
     CommonModule,
     RouterModule,
     HttpModule,
+    ReactiveFormsModule,
   ],
   declarations: [
     NavbarComponent,
     SidebarComponent,
     ProgressBarComponent,
-    NotificationComponent
+    NotificationComponent,
+    SearchInputComponent
   ],
   exports: [
     RouterModule,
@@ -42,7 +45,8 @@ export function httpServiceFactory(xhrBackend: XHRBackend, requestOptions: Reque
     NavbarComponent,
     SidebarComponent,
     ProgressBarComponent,
-    NotificationComponent
+    NotificationComponent,
+    SearchInputComponent
   ]
 })
 export class SharedModule {
