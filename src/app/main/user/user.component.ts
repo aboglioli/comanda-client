@@ -45,10 +45,9 @@ export class UserComponent implements OnInit {
               private notificationService: NotificationService) { }
 
   ngOnInit() {
-    this.userService.get()
-      .subscribe(users => {
-        this.users = users;
-      })
+    this.userService.get().subscribe(users => {
+      this.users = users;
+    });
 
     this.settings = _.assign(this.settings, config.ng2SmartTableDefaultSettings);
   }
@@ -80,8 +79,7 @@ export class UserComponent implements OnInit {
 
     user.scope = event.newData.scope ? [event.newData.scope] : [];
 
-    this.userService.post(user)
-      .subscribe(user => {
+    this.userService.post(user).subscribe(user => {
         event.confirm.resolve(user);
       });
   }
@@ -112,19 +110,17 @@ export class UserComponent implements OnInit {
       user.scope = [user.scope];
     }
 
-    this.userService.put(userId, user)
-      .subscribe(user => {
-        event.confirm.resolve(user);
-      });
+    this.userService.put(userId, user).subscribe(user => {
+      event.confirm.resolve(user);
+    });
   }
 
   onDelete(event) {
     const userId = event.data._id;
 
-    this.userService.delete(userId)
-      .subscribe(() => {
-        event.confirm.resolve();
-      });
+    this.userService.delete(userId).subscribe(() => {
+      event.confirm.resolve();
+    });
   }
 
   private materializeUser(data): User {

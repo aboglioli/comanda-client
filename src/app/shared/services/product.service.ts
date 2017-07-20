@@ -17,8 +17,8 @@ export class ProductService {
       .map(res => <Product[]>res.json());
   }
 
-  getById(ProductId: string): Observable<Product> {
-    return this.http.get('/products/' + ProductId)
+  getById(productId: string): Observable<Product> {
+    return this.http.get('/products/' + productId)
       .map(res => <Product>res.json());
   }
 
@@ -28,16 +28,15 @@ export class ProductService {
       .do(() => this.notificationService.notify('Producto creado'));
   }
 
-  put(ProductId: string, Product: Product): Observable<Product> {
-    return this.http.put('/products/' + ProductId, JSON.stringify(Product))
+  put(productId: string, Product: Product): Observable<Product> {
+    return this.http.put('/products/' + productId, JSON.stringify(Product))
       .map(res => <Product>res.json())
       .do(() => this.notificationService.notify('Producto modificado'));
   }
 
-  delete(ProductId: string): Observable<Product> {
-    return this.http.delete('/products/' + ProductId)
+  delete(productId: string): Observable<Product> {
+    return this.http.delete('/products/' + productId)
       .map(res => <Product>res.json())
       .do(() => this.notificationService.notify('Producto eliminado'));
   }
 }
-

@@ -11,8 +11,9 @@ import { config } from '../../../config';
   styleUrls: ['./raw.component.scss']
 })
 export class RawComponent implements OnInit {
-
   raws: Product[];
+
+  data: any[];
   settings = {
     columns: {
       name: {
@@ -21,7 +22,7 @@ export class RawComponent implements OnInit {
       description: {
         title: 'Descripción',
       },
-      pricevalue: {
+      price: {
         title: 'Precio'
       },
       quantity: {
@@ -53,20 +54,19 @@ export class RawComponent implements OnInit {
               private notificationService: NotificationService) { }
 
   ngOnInit() {
-    this.productService.get()
-      .subscribe(raws => {
-        this.raws = raws;
-      });
+    this.productService.get().subscribe(raws => {
+      this.raws = raws;
+      this.data = raws.map(raw => this.desmaterializeRaw(raw));
+    });
     this.settings = _.assign(this.settings, config.ng2SmartTableDefaultSettings);
   }
 
   onCreate(event) {
     const raw = this.materializeRaw(event.newData);
 
-    this.productService.post(raw)
-      .subscribe(raw => {
-        event.confirm.resolve(raw);
-      });
+    this.productService.post(raw).subscribe(raw => {
+      event.confirm.resolve(this.desmaterializeRaw(raw));
+    });
     console.log(raw);
   }
 
@@ -74,44 +74,42 @@ export class RawComponent implements OnInit {
     const rawId = event.newData._id;
     const raw = this.materializeRaw(event.newData);
 
-    this.productService.put(rawId, raw)
-      .subscribe(raw => {
-        event.confirm.resolve(raw);
-      });
+    this.productService.put(rawId, raw).subscribe(raw => {
+      event.confirm.resolve(this.desmaterializeRaw(raw));
+    });
   }
 
   onDelete(event) {
     const rawId = event.data._id;
 
-    this.productService.delete(rawId)
-      .subscribe(() => {
-        event.confirm.resolve();
-      });
+    this.productService.delete(rawId).subscribe(() => {
+      event.confirm.resolve();
+    });
+  }
+
+  private desmaterializeRaw(product: Product): any {
+    return {
+      _id: product._id,
+      name: product.name,
+      description: product.description,
+      price: product.price.value,
+      quantity: product.price.quantity.value,
+      unit: product.price.quantity.unit
+    };
   }
 
   private materializeRaw(data): Product {
-    const raw: Product = {
+    return {
       name: data.name,
       description: data.description,
       type: 'raw',
       price: {
-        value: data.pricevalue,
+        value: data.price,
         quantity: {
           value: data.quantity,
           unit: data.unit
         }
       }
-
-    }
-    for (const prop in raw) {
-      if (!raw[prop]) {
-        delete raw[prop];
-      }
-    }
-
-    delete raw._id;
-
-    return raw;
+    };
   }
 }
-
