@@ -4,11 +4,13 @@ import { Observable } from 'rxjs/Observable';
 import *  as _ from 'lodash';
 
 import { User } from '../../models';
+import { NotificationService } from './notification.service';
 
 @Injectable()
 export class UserService {
 
-  constructor(private http: Http) { }
+  constructor(private http: Http,
+              private notificationService: NotificationService) { }
 
   get(): Observable<User[]> {
     return this.http.get('/users')
@@ -22,17 +24,20 @@ export class UserService {
 
   post(user: User): Observable<User> {
     return this.http.post('/users', JSON.stringify(user))
-      .map(res => <User>res.json());
+      .map(res => <User>res.json())
+      .do(() => this.notificationService.notify('Usuario creado'));
   }
 
   put(userId: string, user: User): Observable<User> {
     return this.http.put('/users/' + userId, JSON.stringify(user))
-      .map(res => <User>res.json());
+      .map(res => <User>res.json())
+      .do(() => this.notificationService.notify('Usuario modificado'));
   }
 
   delete(userId: string): Observable<User> {
     return this.http.delete('/users/' + userId)
-      .map(res => <User>res.json());
+      .map(res => <User>res.json())
+      .do(() => this.notificationService.notify('Usuario eliminado'));
   }
 
   getMe(): Observable<User> {
@@ -42,7 +47,8 @@ export class UserService {
 
   putMe(user: User): Observable<User> {
     return this.http.put('/users/me', JSON.stringify(user))
-      .map(res => <User>res.json());
+      .map(res => <User>res.json())
+      .do(() => this.notificationService.notify('Usuario modificado'));
   }
 
 }

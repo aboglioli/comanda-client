@@ -4,14 +4,23 @@ import { RouterModule } from '@angular/router';
 import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 import { CommonModule } from '@angular/common';
 
-import { HttpService, CacheService, LoadingService, AccountService, UserService } from './services';
+import {
+  HttpService,
+  CacheService,
+  LoadingService,
+  AccountService,
+  UserService,
+  NotificationService
+}
+from './services';
 import { AuthGuard } from './guards/auth.guard';
 import { NavbarComponent } from './core/navbar/navbar.component';
 import { SidebarComponent } from './core/sidebar/sidebar.component';
 import { ProgressBarComponent } from './core/progress-bar/progress-bar.component';
+import { NotificationComponent } from './core/notification/notification.component';
 
-export function httpServiceFactory(xhrBackend: XHRBackend, requestOptions: RequestOptions, cacheService: CacheService, loadingService: LoadingService) {
-  return new HttpService(xhrBackend, requestOptions, cacheService, loadingService);
+export function httpServiceFactory(xhrBackend: XHRBackend, requestOptions: RequestOptions, cacheService: CacheService, loadingService: LoadingService, notificationService: NotificationService) {
+  return new HttpService(xhrBackend, requestOptions, cacheService, loadingService, notificationService);
 }
 
 @NgModule({
@@ -23,14 +32,16 @@ export function httpServiceFactory(xhrBackend: XHRBackend, requestOptions: Reque
   declarations: [
     NavbarComponent,
     SidebarComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    NotificationComponent
   ],
   exports: [
     RouterModule,
     ReactiveFormsModule,
     NavbarComponent,
     SidebarComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    NotificationComponent
   ]
 })
 export class SharedModule {
@@ -42,9 +53,10 @@ export class SharedModule {
         {
           provide: Http,
           useFactory: httpServiceFactory,
-          deps: [XHRBackend, RequestOptions, CacheService, LoadingService]
+          deps: [XHRBackend, RequestOptions, CacheService, LoadingService, NotificationService]
         },
         LoadingService,
+        NotificationService,
         CacheService,
         AccountService,
         UserService

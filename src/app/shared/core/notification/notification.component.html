@@ -1,0 +1,12 @@
+<div *ngFor="let notification of notificationService.onNotification() | async; let i = index"
+     class="notification card card-inverse card-{{notification.type}} text-left"
+    (click)="notificationService.removeNotification(i)">
+  <div class="card-block p-2 text-white">
+    <div class="d-flex flex-row align-items-center">
+      <p class="m-0 mr-auto">{{notification.message}}</p>
+      <button class="btn btn-link close-btn p-0" (click)="notificationService.removeNotification(i)">
+        <i class="fa fa-times fa-fw"></i>
+      </button>
+    </div>
+  </div>
+</div>
