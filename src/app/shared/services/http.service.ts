@@ -27,7 +27,7 @@ export class HttpService extends Http {
     url = this.updateUrl(url);
 
     return super.get(url, this.getRequestOptionArgs(options))
-      .catch((error: any, caught: Observable<any>) => this.onCatch(error, caught))
+      .catch((error: Response, caught: Observable<any>) => this.onCatch(error, caught))
       .do(() => this.afterRequest());
   }
 
@@ -37,7 +37,7 @@ export class HttpService extends Http {
     url = this.updateUrl(url);
 
     return super.post(url, body, this.getRequestOptionArgs(options))
-      .catch((error: any, caught: Observable<any>) => this.onCatch(error, caught))
+      .catch((error: Response, caught: Observable<any>) => this.onCatch(error, caught))
       .do(() => this.afterRequest());
   }
 
@@ -47,7 +47,7 @@ export class HttpService extends Http {
     url = this.updateUrl(url);
 
     return super.put(url, body, this.getRequestOptionArgs(options))
-      .catch((error: any, caught: Observable<any>) => this.onCatch(error, caught))
+      .catch((error: Response, caught: Observable<any>) => this.onCatch(error, caught))
       .do(() => this.afterRequest());
   }
 
@@ -57,7 +57,7 @@ export class HttpService extends Http {
     url = this.updateUrl(url);
 
     return super.delete(url, this.getRequestOptionArgs(options))
-      .catch((error: any, caught: Observable<any>) => this.onCatch(error, caught))
+      .catch((error: Response, caught: Observable<any>) => this.onCatch(error, caught))
       .do(() => this.afterRequest());
   }
 
@@ -90,9 +90,15 @@ export class HttpService extends Http {
     this.loadingService.hideLoader();
   }
 
-  private onCatch(error: any, caught: Observable<any>): Observable<any> {
+  private onCatch(error: Response, caught: Observable<any>): Observable<any> {
     console.log(error);
-    this.notificationService.notify('Error en el servidor', 'danger');
+
+    if(error.json().message === 'Invalid credentials') {
+      this.notificationService.notify('Credenciales inválidas', 'warning');
+    } else {
+      this.notificationService.notify('Error en el servidor', 'danger');
+    }
+
     this.afterRequest();
     return Observable.throw(error);
   }

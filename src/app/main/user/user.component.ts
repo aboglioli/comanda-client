@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 
-import { UserService } from '../../shared/services';
+import { UserService, NotificationService } from '../../shared/services';
 import { User } from '../../models';
 import { config } from '../../config';
 
@@ -32,7 +32,8 @@ export class UserComponent implements OnInit {
     }
   };
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+              private notificationService: NotificationService) { }
 
   ngOnInit() {
     this.userService.get()
@@ -45,6 +46,8 @@ export class UserComponent implements OnInit {
 
   onCreate(event) {
     const user = this.materializeUser(event.newData);
+
+
 
     this.userService.post(user)
       .subscribe(user => {
