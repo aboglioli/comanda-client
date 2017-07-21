@@ -3,6 +3,7 @@ import { Cell, DefaultEditor, Editor } from 'ng2-smart-table';
 
 import { ProductService } from '../../../../shared/services';
 import { Product } from '../../../../models';
+import { config } from '../../../../config';
 
 @Component({
   selector: 'app-search-product-editor',
@@ -43,11 +44,29 @@ export class SearchProductEditorComponent extends DefaultEditor implements OnIni
     this.selectedProduct = product;
     this.cell.newValue = product;
 
+    const selectedProductUnit = this.selectedProduct.price.quantity.unit;
+
+    if(config.units.mass.find(unit => unit.unit === selectedProductUnit)) {
+      this.buildUnitList(config.units.mass);
+    } else if(config.units.volume.find(unit => unit.unit === selectedProductUnit)) {
+      this.buildUnitList(config.units.volume);
+    } else {
+      this.buildUnitList([{title: 'u', value: 'u'}]);
+    }
+
     this.products = null;
-    // this.onEdited.emit();
   }
 
   resetSearch() {
     this.selectedProduct = null;
+  }
+
+  private buildUnitList(units) {
+    this.cell.getRow().cells[2].getColumn().editor.config.list = units.map(unit => {
+      return {
+        title: unit.unit,
+        value: unit.unit
+      }
+    });
   }
 }
