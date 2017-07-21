@@ -61,7 +61,7 @@ export class ProductListComponent implements OnInit {
     return {
       _id: product._id,
       name: product.name,
-      price: `\$ ${product.price.value} / ${product.price.quantity.value} ${product.price.quantity.unit}`,
+      price: `\$ ${product.price.value.toFixed(2)} / ${product.price.quantity.value} ${product.price.quantity.unit}`,
       type: product.type,
       subproducts: product.subproducts.length
     };
