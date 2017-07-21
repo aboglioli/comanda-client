@@ -6,11 +6,11 @@ import { Product } from '../../../models';
 import { config } from '../../../config';
 
 @Component({
-  selector: 'app-raw',
-  templateUrl: './raw.component.html',
-  styleUrls: ['./raw.component.scss']
+  selector: 'app-raw-list',
+  templateUrl: './raw-list.component.html',
+  styleUrls: ['./raw-list.component.scss']
 })
-export class RawComponent implements OnInit {
+export class RawListComponent implements OnInit {
   raws: Product[];
 
   data: any[];
@@ -45,16 +45,19 @@ export class RawComponent implements OnInit {
               private notificationService: NotificationService) { }
 
   ngOnInit() {
+    // Settings
+    this.settings = _.assign(this.settings, config.ng2SmartTableDefaultSettings);
+
     this.settings.columns.unit.editor.config.list = [...config.units.mass, ...config.units.volume, config.units.unit]
       .map(unit => {
         return {title: unit.unit, value: unit.unit};
       });
 
-    this.productService.get().subscribe(raws => {
+    // Data
+    this.productService.get({type: 'raw'}).subscribe(raws => {
       this.raws = raws;
       this.data = raws.map(raw => this.desmaterializeRaw(raw));
     });
-    this.settings = _.assign(this.settings, config.ng2SmartTableDefaultSettings);
   }
 
   onCreate(event) {

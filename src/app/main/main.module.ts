@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
 import { SharedModule } from '../shared/shared.module';
-import { ProductModule } from './product/product.module';
+import { ProductsModule } from './products/products.module';
 import { UserModule } from './user/user.module';
 import { HomeComponent } from './home/home.component';
 
@@ -13,7 +13,7 @@ import { HomeComponent } from './home/home.component';
     CommonModule,
     MainRoutingModule,
     SharedModule,
-    ProductModule,
+    ProductsModule,
     UserModule
   ],
   declarations: [MainComponent, HomeComponent]

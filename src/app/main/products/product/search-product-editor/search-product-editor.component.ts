@@ -1,15 +1,15 @@
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Cell, DefaultEditor, Editor } from 'ng2-smart-table';
 
 import { ProductService } from '../../../../shared/services';
 import { Product } from '../../../../models';
 
 @Component({
-  selector: 'app-search-input-editor',
-  templateUrl: './search-input-editor.component.html',
-  styleUrls: ['./search-input-editor.component.scss']
+  selector: 'app-search-product-editor',
+  templateUrl: './search-product-editor.component.html',
+  styleUrls: ['./search-product-editor.component.scss']
 })
-export class SearchInputEditorComponent extends DefaultEditor implements AfterViewInit {
+export class SearchProductEditorComponent extends DefaultEditor implements OnInit, AfterViewInit {
   products: Product[];
   selectedProduct: Product;
 
@@ -17,8 +17,14 @@ export class SearchInputEditorComponent extends DefaultEditor implements AfterVi
     super();
   }
 
+  ngOnInit() {
+    if(this.cell.newValue) {
+      console.log(this.cell.newValue);
+      this.selectedProduct = <Product>this.cell.newValue;
+    }
+  }
+
   ngAfterViewInit() {
-    console.log(this.cell.newValue);
   }
 
   onSearch(term: string) {
@@ -35,11 +41,10 @@ export class SearchInputEditorComponent extends DefaultEditor implements AfterVi
 
   onSelect(product: Product) {
     this.selectedProduct = product;
-
-    this.cell.newValue = product.name;
+    this.cell.newValue = product;
 
     this.products = null;
-    this.onEdited.emit();
+    // this.onEdited.emit();
   }
 
   resetSearch() {

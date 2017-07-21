@@ -24,11 +24,7 @@ export class SidebarComponent implements OnInit {
           },
           {
             name: 'Productos',
-            url: '/products/single'
-          },
-          {
-            name: 'Combinación',
-            url: '/products/combination'
+            url: '/products'
           }
         ]
       },

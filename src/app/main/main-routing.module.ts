@@ -7,10 +7,10 @@ import { MainComponent } from './main.component';
 import { HomeComponent } from './home/home.component';
 
 // Product
-import { ProductComponent } from './product/product.component';
-import { RawComponent } from './product/raw/raw.component';
-import { SingleComponent } from './product/single/single.component';
-import { CombinationComponent } from './product/combination/combination.component';
+import { ProductsComponent } from './products/products.component';
+import { RawListComponent } from './products/raw-list/raw-list.component';
+import { ProductListComponent } from './products/product-list/product-list.component';
+import { ProductComponent } from './products/product/product.component';
 
 // User
 import { UserComponent } from './user/user.component';
@@ -31,20 +31,25 @@ const routes: Routes = [
       },
       {
         path: 'products',
-        component: ProductComponent,
+        component: ProductsComponent,
         children: [
           {
+            path: '',
+            component: ProductListComponent,
+            pathMatch: 'full'
+          },
+          {
             path: 'raw',
-            component: RawComponent
+            component: RawListComponent
           },
           {
-            path: 'single',
-            component: SingleComponent
+            path: 'new',
+            component: ProductComponent
           },
           {
-            path: 'combination',
-            component: CombinationComponent
-          }
+            path: ':productId',
+            component: ProductComponent
+          },
         ]
       },
       {

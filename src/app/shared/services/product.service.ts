@@ -3,7 +3,7 @@ import { Http, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import * as _ from 'lodash';
 
-import { Product } from '../../models';
+import { Product, Subproduct } from '../../models';
 import { NotificationService } from './notification.service';
 
 @Injectable()
@@ -48,5 +48,10 @@ export class ProductService {
     return this.http.delete('/products/' + productId)
       .map(res => <Product>res.json())
       .do(() => this.notificationService.notify('Producto eliminado'));
+  }
+
+  calculatePrice(subproducts: Subproduct[]): Observable<{price: number}> {
+    return this.http.post('/products/price', JSON.stringify({products: subproducts}))
+      .map(res => res.json());
   }
 }
