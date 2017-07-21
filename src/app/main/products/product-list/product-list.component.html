@@ -1,34 +1,14 @@
+<h4 class="p-3">Productos</h4>
+
 <div class="card">
-  <div class="card-block">
-    <a routerLink="/products/new">Crear</a>
+  <div class="card-block p-0">
+    <div class="overflow">
+      <ng2-smart-table [settings]="settings"
+                      [source]="data"
+                      (create)="onCreate()"
+                      (edit)="onEdit($event)"
+                      (delete)="onDelete($event)">
+      </ng2-smart-table>
+    </div>
   </div>
 </div>
-
-<table class="table">
-  <thead class="thead-default">
-    <tr>
-      <th>Nombre</th>
-      <th>Descripción</th>
-      <th>Tipo</th>
-      <th>Precio</th>
-      <th>Subproductos</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody *ngIf="products && products.length > 0">
-    <tr *ngFor="let product of products">
-      <td>{{product.name}}</td>
-      <td>{{product.description}}</td>
-      <td>{{product.type}}</td>
-      <td>{{product.price.value}} / {{product.price.quantity.value}}  {{product.price.quantity.unit}}</td>
-      <td>{{product.subproducts.lenght}}</td>
-      <td>
-        <button class="btn btn-link" (click)="goToDetail(product._id)"><i class="fa fa-edit"></i></button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<p *ngIf="!products || products.length === 0">
-  No existen productos
-</p>

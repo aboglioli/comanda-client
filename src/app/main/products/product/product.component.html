@@ -2,7 +2,7 @@
   <div class="card-header">
     Producto
   </div>
-  <div class="card-block">
+  <div *ngIf="form" class="card-block">
     <form [formGroup]="form">
 
       <!-- Name -->
@@ -36,7 +36,7 @@
   </div>
 </div>
 
-<div class="card">
+<div *ngIf="product && product.subproducts" class="card">
   <div class="card-header">
     Insumos
   </div>
@@ -53,5 +53,5 @@
 </div>
 
 <div class="p-3 text-right">
-  <button (click)="onSave()" [disabled]="!form.valid" class="btn btn-primary">Guardar</button>
+  <button (click)="onSave()" [disabled]="!form || !form.valid" class="btn btn-primary">Guardar</button>
 </div>
