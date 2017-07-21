@@ -61,10 +61,6 @@ export class ProductComponent implements OnInit {
       this.product.description = this.form.value.description;
       this.product.type = this.form.value.type;
 
-      this.product.subproducts = this.product.subproducts.map(subproduct => {
-        return subproduct.product._id;
-      });
-
       console.log(this.product);
     }
 
