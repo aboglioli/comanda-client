@@ -5,7 +5,7 @@
     <div class="overflow">
       <ng2-smart-table [settings]="settings"
                       [source]="data"
-                      (create)="onCreate()"
+                      (create)="onCreate($event)"
                       (edit)="onEdit($event)"
                       (delete)="onDelete($event)">
       </ng2-smart-table>

@@ -53,7 +53,7 @@ export class ProductListComponent implements OnInit {
     this.router.navigate(['/products', event.data._id]);
   }
 
-  onDelete() {
+  onDelete(event) {
     console.log('delete');
   }
 
