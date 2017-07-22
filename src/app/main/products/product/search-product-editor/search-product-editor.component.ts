@@ -58,6 +58,7 @@ export class SearchProductEditorComponent extends DefaultEditor implements OnIni
   resetSearch() {
     this.cell.newValue = null;
     this.selectedProduct = null;
+    this.cell.getRow().getCells().forEach(cell => cell.newValue = '');
   }
 
   private buildUnitList(units) {
