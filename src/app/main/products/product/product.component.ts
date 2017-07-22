@@ -68,9 +68,7 @@ export class ProductComponent implements OnInit {
       this.product.name = this.form.value.name;
       this.product.description = this.form.value.description;
 
-      console.log(this.product);
       this.product = <Product>removeEmptyProperties(this.product);
-      console.log(this.product);
 
       const product: Product = _.cloneDeep(this.product);
       const subproducts = <Subproduct[]>product.subproducts;
