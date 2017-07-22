@@ -107,15 +107,27 @@ export class SubproductsComponent implements OnInit {
 
     const materializedSubproduct = this.materializeSubproduct(event.newData);
 
+    let subproducts = _.cloneDeep(this.subproducts);
+
     console.log(event);
 
-    this.subproducts = this.subproducts.map((subproduct, i) => {
+    const sameSubproducts = subproducts.filter(s => s.product._id === materializedSubproduct.product._id).length;
+
+    if(sameSubproducts > 1) {
+      this.notificationService.notify('Este insumo ya existe en el producto', 'danger');
+      event.confirm.reject();
+      return;
+    }
+
+    subproducts = subproducts.map((subproduct, i) => {
       if(subproduct.product._id === materializedSubproduct.product._id) {
         return materializedSubproduct;
       }
 
       return subproduct;
     });
+
+    this.subproducts = subproducts;
 
     this.changeSubproducts.emit(this.subproducts);
 

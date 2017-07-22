@@ -20,7 +20,6 @@ export class SearchProductEditorComponent extends DefaultEditor implements OnIni
 
   ngOnInit() {
     if(this.cell.newValue) {
-      console.log(this.cell.newValue);
       this.selectedProduct = <Product>this.cell.newValue;
     }
   }
