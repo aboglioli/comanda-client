@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { LocalDataSource } from 'ng2-smart-table';
 import * as _ from 'lodash';
 
+import { ProductService } from '../../../../shared/services';
 import { SearchProductEditorComponent } from '../search-product-editor/search-product-editor.component';
 import { SearchProductRenderComponent } from '../search-product-render/search-product-render.component';
 import { Subproduct, Product } from '../../../../models';
@@ -16,6 +18,8 @@ export class SubproductsComponent implements OnInit {
   @Output() changeSubproducts = new EventEmitter<Subproduct[]>();
 
   data = [];
+  source: LocalDataSource;
+  raws: Product[];
 
   settings = {
     columns: {
@@ -27,6 +31,9 @@ export class SubproductsComponent implements OnInit {
           type: 'custom',
           component: SearchProductEditorComponent,
         },
+        filterFunction(cell?: Product, search?: string): boolean {
+          return cell.name.toLocaleLowerCase().indexOf(search.toLocaleLowerCase()) > -1;
+        }
       },
       quantity: {
         title: 'Cantidad',
@@ -44,7 +51,8 @@ export class SubproductsComponent implements OnInit {
     },
   };
 
-  constructor() { }
+  constructor(private productService: ProductService) {
+   }
 
   ngOnInit() {
     // Settings
@@ -61,8 +69,12 @@ export class SubproductsComponent implements OnInit {
     }
 
     this.subproducts = this.subproducts || [];
-  }
 
+    this.productService.get({type: 'raw'}).subscribe(raws => {
+      this.raws = raws;
+      this.data = raws.map(raw => this.desmaterializeRaw(raw));
+    });
+  }
 
   onCreate(event) {
     this.subproducts.push(this.materializeSubproduct(event.newData));
@@ -99,6 +111,20 @@ export class SubproductsComponent implements OnInit {
     event.confirm.resolve();
   }
 
+  onSearch(text: string) {
+    this.source.setFilter([
+      // fields we want to include in the search
+      {
+        field: 'quantity',
+        search: text
+      },
+       {
+        field: 'unit',
+        search: text
+      },
+    ], false);
+  }
+
   private desmaterializeSubproduct(subproduct: Subproduct): any {
     return {
       product: subproduct.product,
@@ -114,6 +140,14 @@ export class SubproductsComponent implements OnInit {
         unit: data.unit
       },
       product: data.product,
+    };
+  }
+
+  private desmaterializeRaw(product: Product): any {
+    return {
+      product: product,
+      quantity: product.price.quantity.value,
+      unit: product.price.quantity.unit
     };
   }
 
