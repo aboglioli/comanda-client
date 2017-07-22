@@ -10,7 +10,7 @@ export const config = {
       edit: true,
       delete: true,
       custom: [],
-      position: 'right',
+      position: 'left',
     },
     edit: {
       inputClass: '',

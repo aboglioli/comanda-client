@@ -4,6 +4,7 @@ import * as _ from 'lodash';
 import { UserService, NotificationService } from '../../shared/services';
 import { User } from '../../models';
 import { config } from '../../config';
+import { removeEmptyProperties } from '../../utils';
 
 @Component({
   selector: 'app-user',
@@ -53,7 +54,7 @@ export class UserComponent implements OnInit {
   }
 
   onCreate(event) {
-    const user = this.materializeUser(event.newData);
+    const user = <User>removeEmptyProperties(event.newData);
 
     const required = [];
 
@@ -86,7 +87,7 @@ export class UserComponent implements OnInit {
 
   onEdit(event) {
     const userId = event.newData._id;
-    const user = this.materializeUser(event.newData);
+    const user = <User>removeEmptyProperties(event.newData);
 
     const required = [];
 
@@ -110,7 +111,7 @@ export class UserComponent implements OnInit {
       user.scope = [user.scope];
     }
 
-    this.userService.put(userId, user).subscribe(user => {
+    this.userService.put(userId, _.omit(user, ['_id', 'created_at', 'updated_at'])).subscribe(user => {
       event.confirm.resolve(user);
     });
   }

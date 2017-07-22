@@ -34,10 +34,9 @@ export class SearchProductEditorComponent extends DefaultEditor implements OnIni
       return;
     }
 
-    this.productService.get({name: term})
-      .subscribe(products => {
-        this.products = products;
-      });
+    this.productService.get({name: term}).subscribe(products => {
+      this.products = products;
+    });
   }
 
   onSelect(product: Product) {
@@ -51,13 +50,14 @@ export class SearchProductEditorComponent extends DefaultEditor implements OnIni
     } else if(config.units.volume.find(unit => unit.unit === selectedProductUnit)) {
       this.buildUnitList(config.units.volume);
     } else {
-      this.buildUnitList([{title: 'u', value: 'u'}]);
+      this.buildUnitList([{unit: 'u', value: 1}]);
     }
 
     this.products = null;
   }
 
   resetSearch() {
+    this.cell.newValue = null;
     this.selectedProduct = null;
   }
 
