@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { LocalDataSource } from 'ng2-smart-table';
 import * as _ from 'lodash';
 
 import { ProductService } from '../../../../shared/services';
@@ -20,7 +19,6 @@ export class SubproductsComponent implements OnInit {
   @Output() changeSubproducts = new EventEmitter<Subproduct[]>();
 
   subproducts: Subproduct[];
-  source: LocalDataSource;
   data = [];
   settings = {
     columns: {
@@ -146,19 +144,6 @@ export class SubproductsComponent implements OnInit {
     event.confirm.resolve();
   }
 
-  onSearch(text: string) {
-    this.source.setFilter([
-      // fields we want to include in the search
-      {
-        field: 'quantity',
-        search: text
-      },
-       {
-        field: 'unit',
-        search: text
-      },
-    ], false);
-  }
   private validate(data): boolean {
     // Check for required properties
     const propsNotPresent = checkProperties(data, [{
