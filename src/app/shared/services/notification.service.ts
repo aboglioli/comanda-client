@@ -14,10 +14,18 @@ export class NotificationService {
   }
 
   notify(message: string, type = 'success') {
-    this.notifications.push({
+    const notification: Notification = {
       message,
       type
-    })
+    };
+
+    this.notifications.push(notification);
+
+    // Notifications are closed after 3 seconds
+    setTimeout(() => {
+      this.notifications = this.notifications.filter(n => n !== notification);
+      this.notification$.next(this.notifications);
+    }, 3000);
 
     this.notification$.next(this.notifications);
   }

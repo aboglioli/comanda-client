@@ -15,14 +15,6 @@
 
       <!-- Description -->
       <div class="form-group row">
-        <label for="description" class="col-2 col-form-label">Description</label>
-        <div class="col-10">
-          <input formControlName="description" class="form-control" type="text" id="description">
-        </div>
-      </div>
-
-      <!-- Description -->
-      <div class="form-group row">
         <label for="type" class="col-2 col-form-label">Tipo</label>
         <div class="col-10">
           <select formControlName="type" class="form-control" id="exampleSelect1">
@@ -41,7 +33,7 @@
     Insumos
   </div>
   <div class="card-block p-0">
-    <app-subproducts [subproducts]="product.subproducts"
+    <app-subproducts [product]="product"
                      (changeSubproducts)="onChangeSubproducts($event)">
     </app-subproducts>
   </div>

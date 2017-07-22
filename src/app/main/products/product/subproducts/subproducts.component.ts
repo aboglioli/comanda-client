@@ -6,7 +6,9 @@ import { ProductService } from '../../../../shared/services';
 import { SearchProductEditorComponent } from '../search-product-editor/search-product-editor.component';
 import { SearchProductRenderComponent } from '../search-product-render/search-product-render.component';
 import { Subproduct, Product } from '../../../../models';
+import { NotificationService } from '../../../../shared/services';
 import { config } from '../../../../config';
+import { checkProperties } from '../../../../utils';
 
 @Component({
   selector: 'app-subproducts',
@@ -14,13 +16,12 @@ import { config } from '../../../../config';
   styleUrls: ['./subproducts.component.scss']
 })
 export class SubproductsComponent implements OnInit {
-  @Input() subproducts: Subproduct[];
+  @Input() product: Product;
   @Output() changeSubproducts = new EventEmitter<Subproduct[]>();
 
-  data = [];
+  subproducts: Subproduct[];
   source: LocalDataSource;
-  raws: Product[];
-
+  data = [];
   settings = {
     columns: {
       product: {
@@ -51,8 +52,7 @@ export class SubproductsComponent implements OnInit {
     },
   };
 
-  constructor(private productService: ProductService) {
-   }
+  constructor(private notificationService: NotificationService) { }
 
   ngOnInit() {
     // Settings
@@ -64,27 +64,50 @@ export class SubproductsComponent implements OnInit {
       });
 
     // Data
+    this.subproducts = <Subproduct[]>this.product.subproducts;
+
     if(this.subproducts && this.subproducts.length > 0) {
       this.data = this.subproducts.map(subproduct => this.desmaterializeSubproduct(subproduct));
     }
 
     this.subproducts = this.subproducts || [];
 
-    this.productService.get({type: 'raw'}).subscribe(raws => {
-      this.raws = raws;
-      this.data = raws.map(raw => this.desmaterializeRaw(raw));
-    });
   }
 
   onCreate(event) {
-    this.subproducts.push(this.materializeSubproduct(event.newData));
-    this.changeSubproducts.emit(this.subproducts);
+    // Validate
+    const valid = this.validate(event.newData);
 
+    if(!valid) {
+      event.confirm.reject();
+      return;
+    }
+
+    const materializedSubproduct = this.materializeSubproduct(event.newData);
+    const duplicatedSubproducts = this.checkDuplicatedSubproducts([materializedSubproduct, ...this.subproducts]);
+
+    if(duplicatedSubproducts) {
+      event.confirm.reject();
+      return;
+    }
+
+    this.subproducts.push(materializedSubproduct);
+    this.changeSubproducts.emit(this.subproducts);
     event.confirm.resolve(event.newData);
   }
 
   onEdit(event) {
+    // Validate
+    const valid = this.validate(event.newData);
+
+    if(!valid) {
+      event.confirm.reject();
+      return;
+    }
+
     const materializedSubproduct = this.materializeSubproduct(event.newData);
+
+    console.log(event);
 
     this.subproducts = this.subproducts.map((subproduct, i) => {
       if(subproduct.product._id === materializedSubproduct.product._id) {
@@ -124,6 +147,47 @@ export class SubproductsComponent implements OnInit {
       },
     ], false);
   }
+  private validate(data): boolean {
+    // Check for required properties
+    const propsNotPresent = checkProperties(data, [{
+      name: 'product',
+      text: 'insumo'
+    }, {
+      name: 'quantity',
+      text: 'cantidad'
+    }, {
+      name: 'unit',
+      text: 'unidad'
+    }]);
+
+    if(propsNotPresent && propsNotPresent.length > 0) {
+      this.notificationService.notify('Se requere ' + propsNotPresent.join(', '), 'danger');
+      return false;
+    }
+
+    // Product cannot reference itself as subproduct
+    if(data.product._id === this.product._id) {
+      this.notificationService.notify('El producto no puede tenerse a sí mismo como subproducto', 'danger');
+      return false;
+    }
+
+    // Product can only have once the same subproduct
+
+    return true;
+  }
+
+  private checkDuplicatedSubproducts(subproducts: Subproduct[]): boolean {
+    const duplicatedSubproducts = subproducts.some(subproduct => {
+      return subproducts.filter(s => s.product._id === subproduct.product._id).length !== 1;
+    });
+
+    if(duplicatedSubproducts) {
+      this.notificationService.notify('El producto contiene el mismo insumo más de una vez', 'danger');
+      return true;
+    }
+
+    return false;
+  }
 
   private desmaterializeSubproduct(subproduct: Subproduct): any {
     return {
@@ -140,14 +204,6 @@ export class SubproductsComponent implements OnInit {
         unit: data.unit
       },
       product: data.product,
-    };
-  }
-
-  private desmaterializeRaw(product: Product): any {
-    return {
-      product: product,
-      quantity: product.price.quantity.value,
-      unit: product.price.quantity.unit
     };
   }
 

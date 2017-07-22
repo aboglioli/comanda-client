@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as _ from 'lodash';
 
 import { Product, Subproduct } from '../../../models';
-import { ProductService } from '../../../shared/services';
+import { ProductService, NotificationService } from '../../../shared/services';
+import { removeEmptyProperties } from '../../../utils';
 
 @Component({
   selector: 'app-product',
@@ -18,6 +19,8 @@ export class ProductComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
+              private router: Router,
+              private notificationService: NotificationService,
               private productService: ProductService) { }
 
   ngOnInit() {
@@ -56,19 +59,23 @@ export class ProductComponent implements OnInit {
   onChangeSubproducts(subproducts: Subproduct[]) {
     this.product.subproducts = subproducts;
     this.calculatePrice(this.product.subproducts);
-
-    // console.log(this.product);
   }
 
   onSave() {
     if(this.form.valid) {
+      // Form data to product object
       this.product.type = this.form.value.type;
       this.product.name = this.form.value.name;
       this.product.description = this.form.value.description;
 
+      console.log(this.product);
+      this.product = <Product>removeEmptyProperties(this.product);
+      console.log(this.product);
+
       const product: Product = _.cloneDeep(this.product);
       const subproducts = <Subproduct[]>product.subproducts;
 
+      // Change subproduct objects with ids
       product.subproducts = subproducts.map(subproduct => {
         return {
           quantity: {
@@ -79,8 +86,7 @@ export class ProductComponent implements OnInit {
         };
       });
 
-      console.log(product);
-
+      // Save
       if(product._id) {
         this.productService.put(product._id, _.omit(product, ['_id', 'price']))
           .subscribe(product => this.product = product);
@@ -89,7 +95,10 @@ export class ProductComponent implements OnInit {
       }
 
       this.productService.post(_.omit(product, ['_id', 'price']))
-        .subscribe(product => this.product = product);
+        .subscribe(product => {
+          this.product = product
+          this.router.navigate(['/products', product._id]);
+        });
     }
 
   }
