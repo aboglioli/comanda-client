@@ -17,6 +17,10 @@ export class ProgressBarComponent implements OnInit {
   ngOnInit() {
     this.loadingService.onLoader().subscribe(show => {
       if(show) {
+        if(this.lastInterval) {
+          clearInterval(this.lastInterval);
+        }
+
         this.lastInterval = setInterval(() => {
           this.width += 3;
           if(this.width > 100) {
@@ -26,6 +30,7 @@ export class ProgressBarComponent implements OnInit {
       } else {
         this.width = 0;
         clearInterval(this.lastInterval);
+        this.lastInterval = null;
       }
     });
 
