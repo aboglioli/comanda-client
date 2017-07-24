@@ -10,7 +10,7 @@ import { config } from '../../../../config';
   templateUrl: './search-product-editor.component.html',
   styleUrls: ['./search-product-editor.component.scss']
 })
-export class SearchProductEditorComponent extends DefaultEditor implements OnInit, AfterViewInit {
+export class SearchProductEditorComponent extends DefaultEditor implements OnInit {
   products: Product[];
   selectedProduct: Product;
 
@@ -20,11 +20,9 @@ export class SearchProductEditorComponent extends DefaultEditor implements OnIni
 
   ngOnInit() {
     if(this.cell.newValue) {
-      this.selectedProduct = <Product>this.cell.newValue;
+      const selectedProduct = <Product>this.cell.newValue;
+      this.setSelectedProduct(selectedProduct);
     }
-  }
-
-  ngAfterViewInit() {
   }
 
   onSearch(term: string) {
@@ -39,8 +37,20 @@ export class SearchProductEditorComponent extends DefaultEditor implements OnIni
   }
 
   onSelect(product: Product) {
+    this.setSelectedProduct(product);
+  }
+
+  resetSearch() {
+    this.cell.newValue = null;
+    this.selectedProduct = null;
+    this.products = null;
+    this.cell.getRow().getCells().forEach(cell => cell.newValue = '');
+  }
+
+  private setSelectedProduct(product: Product) {
     this.selectedProduct = product;
     this.cell.newValue = product;
+    this.products = null;
 
     const selectedProductUnit = this.selectedProduct.price.quantity.unit;
 
@@ -51,14 +61,6 @@ export class SearchProductEditorComponent extends DefaultEditor implements OnIni
     } else {
       this.buildUnitList([{unit: 'u', value: 1}]);
     }
-
-    this.products = null;
-  }
-
-  resetSearch() {
-    this.cell.newValue = null;
-    this.selectedProduct = null;
-    this.cell.getRow().getCells().forEach(cell => cell.newValue = '');
   }
 
   private buildUnitList(units) {

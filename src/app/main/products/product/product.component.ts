@@ -34,7 +34,7 @@ export class ProductComponent implements OnInit {
             this.buildForm(this.product);
 
             if(this.product.subproducts) {
-              this.calculatePrice(this.product.subproducts);
+              this.price = this.product.price.value;
             }
           });
       } else {

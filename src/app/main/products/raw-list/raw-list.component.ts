@@ -19,9 +19,6 @@ export class RawListComponent implements OnInit {
       name: {
         title: 'Nombre'
       },
-      description: {
-        title: 'Descripción',
-      },
       price: {
         title: 'Precio'
       },
@@ -90,7 +87,6 @@ export class RawListComponent implements OnInit {
     return {
       _id: product._id,
       name: product.name,
-      description: product.description,
       price: product.price.value,
       quantity: product.price.quantity.value,
       unit: product.price.quantity.unit
@@ -100,7 +96,6 @@ export class RawListComponent implements OnInit {
   private materializeRaw(data): Product {
     return {
       name: data.name,
-      description: data.description,
       type: 'raw',
       price: {
         value: data.price,
