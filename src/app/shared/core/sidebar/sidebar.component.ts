@@ -23,8 +23,12 @@ export class SidebarComponent implements OnInit {
             url: '/products/raw'
           },
           {
-            name: 'Productos',
-            url: '/products'
+            name: 'Intermedios',
+            url: '/products/intermediate'
+          },
+          {
+            name: 'Finales',
+            url: '/products/final'
           }
         ]
       },

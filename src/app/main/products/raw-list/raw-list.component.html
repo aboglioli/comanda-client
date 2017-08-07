@@ -1,13 +1,15 @@
-<h4 class="p-3">Insumos</h4>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" [routerLink]="['/insumos']">Insumos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [routerLink]="['/descartables']">Descartables</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [routerLink]="['papeles']">Papeles</a>
+  </li>  
+</ul>
 
-<div class="card">
-  <div class="card-block p-0">
-    <div class="overflow">
-      <ng2-smart-table [settings]="settings"
-                      [source]="data"
-                      (createConfirm)="onCreate($event)"
-                      (editConfirm)="onEdit($event)"
-                      (deleteConfirm)="onDelete($event)">
-      </ng2-smart-table>
-    </div>
-  </div>
+<div>
+    <router-outlet></router-outlet>
+</div>
