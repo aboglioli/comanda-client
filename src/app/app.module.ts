@@ -10,6 +10,15 @@ import { SharedModule } from './shared/shared.module';
 import { MainModule } from './main/main.module';
 import { LoginModule } from './login/login.module';
 
+// Redux
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
+import { reducers } from './reducers';
+import { effects } from './effects';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -17,7 +26,15 @@ import { LoginModule } from './login/login.module';
     AppRoutingModule,
     SharedModule.forRoot(),
     MainModule,
-    LoginModule
+    LoginModule,
+
+    // Redux
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot(effects),
+    StoreRouterConnectingModule,
+    StoreDevtoolsModule.instrument({
+      maxAge: 25
+    }),
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy}

@@ -4,7 +4,17 @@ import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-main',
-  templateUrl: './main.component.html',
+  template: `
+    <div id="wrapper">
+      <app-navbar></app-navbar>
+
+      <div id="content">
+        <router-outlet></router-outlet>
+      </div>
+
+      <span class="metadata">{{envName}}</span>
+    </div>
+  `,
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {

@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as _ from 'lodash';
+import { Store } from '@ngrx/store';
 
 import { Product, Subproduct } from '../../../models';
 import { ProductService, NotificationService } from '../../../shared/services';
 import { removeEmptyProperties } from '../../../utils';
+import { AppState } from '../../../reducers';
+import * as product from '../../../reducers/product';
 
 @Component({
   selector: 'app-product',
@@ -21,9 +24,23 @@ export class ProductComponent implements OnInit {
               private fb: FormBuilder,
               private router: Router,
               private notificationService: NotificationService,
+              private store: Store<AppState>,
               private productService: ProductService) { }
 
   ngOnInit() {
+    this.store.select('product').subscribe(product => {
+      console.log(product);
+    });
+
+    setTimeout(() => {
+      this.store.dispatch({
+        type: product.SET,
+        payload: {
+          name: 'nuevo'
+        }
+      });
+    }, 2000);
+
     this.route.params.subscribe((params: Params) => {
       const productId = params['productId'];
 
@@ -37,6 +54,11 @@ export class ProductComponent implements OnInit {
               this.price = this.product.price.value;
             }
           });
+
+        this.store.dispatch({
+          type: product.GET_BY_ID,
+          payload: productId
+        });
       } else {
         this.product = {
           name: '',
@@ -80,7 +102,7 @@ export class ProductComponent implements OnInit {
             value: +subproduct.quantity.value,
             unit: subproduct.quantity.unit
           },
-          product: subproduct.product._id
+          product: subproduct.product
         };
       });
 
@@ -105,7 +127,7 @@ export class ProductComponent implements OnInit {
     const subproductsWithId = subproducts.map(subproduct => {
       return {
         quantity: subproduct.quantity,
-        product: typeof subproduct.product === 'string' ? subproduct.product : subproduct.product._id
+        product: typeof subproduct.product === 'string' ? subproduct.product : subproduct.product
       };
     });
 
