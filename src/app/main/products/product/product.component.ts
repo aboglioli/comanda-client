@@ -17,7 +17,7 @@ import * as product from '../../../reducers/product';
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
-  product: Product;
+  product: Observable<Product>;
   subproducts: Subproduct[];
   form: FormGroup;
   price: number;
@@ -30,85 +30,69 @@ export class ProductComponent implements OnInit {
               private productService: ProductService) { }
 
   ngOnInit() {
+    this.product = this.store.select('product');
+
+    this.product.subscribe(product => {
+      this.buildForm(product);
+    });
+
     this.route.params.subscribe((params: Params) => {
       const productId = params['productId'];
 
-      if(productId) {
-        Observable.forkJoin(
-          this.productService.getById(productId),
-          this.productService.getSubproducts(productId)
-        ).subscribe(([product, subproducts]) => {
-          this.product = {
-              ...product,
-            subproducts
-          };
-
-          console.log(this.product);
-
-          this.price = this.product.price.value;
-
-          this.buildForm(this.product);
-        });
-      } else {
-        this.product = {
-          name: '',
-          description: '',
-          type: 'single',
-          price: {
-            value: 0,
-            quantity: {
-              value: 0,
-              unit: ''
-            }
-          },
-          subproducts: []
-        }
-        this.buildForm(this.product);
-      }
+      this.store.dispatch({
+        type: product.GET_BY_ID,
+        payload: productId
+      });
     });
   }
 
   onChangeSubproducts(subproducts: Subproduct[]) {
-    this.product.subproducts = subproducts;
-    this.calculatePrice(this.product.subproducts);
+    this.store.dispatch({
+      type: product.SET,
+      payload: {
+        subproducts
+      }
+    });
+
+    this.calculatePrice(subproducts);
   }
 
   onSave() {
     if(this.form.valid) {
-      // Form data to product object
-      this.product.type = this.form.value.type;
-      this.product.name = this.form.value.name;
-      this.product.description = this.form.value.description;
+      // // Form data to product object
+      // this.product.type = this.form.value.type;
+      // this.product.name = this.form.value.name;
+      // this.product.description = this.form.value.description;
 
-      this.product = <Product>removeEmptyProperties(this.product);
+      // this.product = <Product>removeEmptyProperties(this.product);
 
-      const product: Product = _.cloneDeep(this.product);
-      const subproducts = <Subproduct[]>product.subproducts;
+      // const product: Product = _.cloneDeep(this.product);
+      // const subproducts = <Subproduct[]>product.subproducts;
 
-      // Change subproduct objects with ids
-      product.subproducts = subproducts.map(subproduct => {
-        return {
-          quantity: {
-            value: +subproduct.quantity.value,
-            unit: subproduct.quantity.unit
-          },
-          product: subproduct.product
-        };
-      });
+      // // Change subproduct objects with ids
+      // product.subproducts = subproducts.map(subproduct => {
+      //   return {
+      //     quantity: {
+      //       value: +subproduct.quantity.value,
+      //       unit: subproduct.quantity.unit
+      //     },
+      //     product: subproduct.product
+      //   };
+      // });
 
-      // Save
-      if(product._id) {
-        this.productService.put(product._id, _.omit(product, ['_id', 'price']))
-          .subscribe(product => this.product = product);
+      // // Save
+      // if(product._id) {
+      //   this.productService.put(product._id, _.omit(product, ['_id', 'price']))
+      //     .subscribe(product => this.product = product);
 
-        return;
-      }
+      //   return;
+      // }
 
-      this.productService.post(_.omit(product, ['_id', 'price']))
-        .subscribe(product => {
-          this.product = product
-          this.router.navigate(['/products', product._id]);
-        });
+      // this.productService.post(_.omit(product, ['_id', 'price']))
+      //   .subscribe(product => {
+      //     this.product = product
+      //     this.router.navigate(['/products', product._id]);
+      //   });
     }
 
   }

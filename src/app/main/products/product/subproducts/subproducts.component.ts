@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Subscription } from 'rxjs';
 import * as _ from 'lodash';
 import { LocalDataSource } from 'ng2-smart-table';
 
@@ -15,7 +16,7 @@ import { checkProperties } from '../../../../utils';
   templateUrl: './subproducts.component.html',
   styleUrls: ['./subproducts.component.scss']
 })
-export class SubproductsComponent implements OnInit {
+export class SubproductsComponent implements OnInit, OnChanges {
   @Input() product: Product;
   @Output() changeSubproducts = new EventEmitter<Subproduct[]>();
 
@@ -50,6 +51,8 @@ export class SubproductsComponent implements OnInit {
     },
   };
 
+  private subscription: Subscription;
+
   constructor(private notificationService: NotificationService) { }
 
   ngOnInit() {
@@ -65,9 +68,22 @@ export class SubproductsComponent implements OnInit {
     const subproducts = <Subproduct[]>this.product.subproducts || [];
     this.data = new LocalDataSource(subproducts.map(subproduct => this.desmaterializeSubproduct(subproduct)));
 
-    this.data.onChanged().subscribe(data => {
+    this.subscription = this.data.onChanged().subscribe(data => {
       this.changeSubproducts.emit(data.elements.map(element => this.materializeSubproduct(element)));
     });
+  }
+
+  ngOnChanges() {
+    // if (this.subscription) {
+    //   this.subscription.unsubscribe();
+    // }
+
+    // const subproducts = <Subproduct[]>this.product.subproducts || [];
+    // this.data = new LocalDataSource(subproducts.map(subproduct => this.desmaterializeSubproduct(subproduct)));
+
+    // this.subscription = this.data.onChanged().subscribe(data => {
+    //   this.changeSubproducts.emit(data.elements.map(element => this.materializeSubproduct(element)));
+    // });
   }
 
   onCreate(event) {

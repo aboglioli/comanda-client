@@ -9,6 +9,7 @@ export interface Price {
 }
 
 export interface Subproduct {
+  _id?: string;
   quantity?: Quantity;
   product?: Product | string;
 }

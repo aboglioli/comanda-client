@@ -28,12 +28,12 @@
   </div>
 </div>
 
-<div *ngIf="product && product.subproducts" class="card">
+<div class="card">
   <div class="card-header">
     Insumos
   </div>
   <div class="card-block p-0">
-    <app-subproducts [product]="product.subproducts"
+    <app-subproducts [product]="product | async"
                      (changeSubproducts)="onChangeSubproducts($event)">
     </app-subproducts>
   </div>

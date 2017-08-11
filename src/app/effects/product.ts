@@ -3,8 +3,9 @@ import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
+import { Product, Subproduct } from '../models';
 import { ProductService } from '../shared/services';
-import * as product from '../reducers/product';
+import * as productReducer from '../reducers/product';
 
 
 @Injectable()
@@ -14,10 +15,20 @@ export class ProductEffects {
 
   @Effect()
   getById$: Observable<Action> = this.actions$
-    .ofType(product.GET_BY_ID)
+    .ofType(productReducer.GET_BY_ID)
     .map(toPayload)
     .switchMap(productId => {
-      return this.productService.getById(productId)
-        .map(payload => ({type: product.SET, payload}));
+      return Observable.forkJoin(
+        this.productService.getById(productId),
+        this.productService.getSubproducts(productId)
+      ).map(([product, subproducts]: [Product, Subproduct[]]) => {
+        return {
+          type: productReducer.SET,
+          payload: {
+            ...product,
+            subproducts
+          }
+        }
+      });
     });
 }
