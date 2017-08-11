@@ -10,7 +10,7 @@ export interface Price {
 
 export interface Subproduct {
   quantity?: Quantity;
-  product?: string;
+  product?: Product | string;
 }
 
 export interface Product {
@@ -19,5 +19,5 @@ export interface Product {
   description?: string;
   type?: string;
   price?: Price;
-  subproducts?: Subproduct[] | string[];
+  subproducts?: Subproduct[];
 }

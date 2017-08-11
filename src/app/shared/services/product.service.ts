@@ -32,6 +32,11 @@ export class ProductService {
       .map(res => <Product>res.json());
   }
 
+  getSubproducts(productId: string): Observable<Subproduct[]> {
+    return this.http.get('/products/' + productId + '/subproducts')
+      .map(res => <Subproduct[][]>res.json());
+  }
+
   post(Product: Product): Observable<Product> {
     return this.http.post('/products', JSON.stringify(Product))
       .map(res => <Product>res.json())

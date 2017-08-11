@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 import * as _ from 'lodash';
 import { Store } from '@ngrx/store';
 
@@ -17,6 +18,7 @@ import * as product from '../../../reducers/product';
 })
 export class ProductComponent implements OnInit {
   product: Product;
+  subproducts: Subproduct[];
   form: FormGroup;
   price: number;
 
@@ -28,36 +30,24 @@ export class ProductComponent implements OnInit {
               private productService: ProductService) { }
 
   ngOnInit() {
-    this.store.select('product').subscribe(product => {
-      console.log(product);
-    });
-
-    setTimeout(() => {
-      this.store.dispatch({
-        type: product.SET,
-        payload: {
-          name: 'nuevo'
-        }
-      });
-    }, 2000);
-
     this.route.params.subscribe((params: Params) => {
       const productId = params['productId'];
 
       if(productId) {
-        this.productService.getById(productId)
-          .subscribe((product: Product) => {
-            this.product = product;
-            this.buildForm(this.product);
+        Observable.forkJoin(
+          this.productService.getById(productId),
+          this.productService.getSubproducts(productId)
+        ).subscribe(([product, subproducts]) => {
+          this.product = {
+              ...product,
+            subproducts
+          };
 
-            if(this.product.subproducts) {
-              this.price = this.product.price.value;
-            }
-          });
+          console.log(this.product);
 
-        this.store.dispatch({
-          type: product.GET_BY_ID,
-          payload: productId
+          this.price = this.product.price.value;
+
+          this.buildForm(this.product);
         });
       } else {
         this.product = {
