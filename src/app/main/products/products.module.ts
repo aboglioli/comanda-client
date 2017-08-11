@@ -6,7 +6,6 @@ import { SharedModule } from '../../shared/shared.module';
 import { RawListModule } from './raw-list/raw-list.module';
 import { IntermediateListModule } from './intermediate-list/intermediate-list.module';
 import { FinalListModule } from './final-list/final-list.module';
-import { ProductsComponent } from './products.component';
 
 import { RawListComponent } from './raw-list/raw-list.component';
 import { ProductListComponent } from './product-list/product-list.component';
@@ -28,7 +27,6 @@ import { FinalListComponent } from './final-list/final-list.component';
     FinalListModule
   ],
   declarations: [
-    ProductsComponent,
     ProductComponent,
     RawListComponent,
     ProductListComponent,

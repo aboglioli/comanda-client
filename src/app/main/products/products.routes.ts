@@ -1,8 +1,5 @@
 import { Routes } from '@angular/router';
 
-import { ProductsComponent } from './products.component';
-
-
 // RawList
 import { RawListComponent } from './raw-list/raw-list.component';
 import { RawComponent } from './raw-list/raw/raw.component';
@@ -15,7 +12,6 @@ import { ProductComponent } from './product/product.component';
 
 export const routes = [{
   path: 'products',
-  component: ProductsComponent,
   children: [
     {
       path: '',
