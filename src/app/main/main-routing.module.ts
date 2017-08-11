@@ -6,14 +6,9 @@ import { MainComponent } from './main.component';
 // Home
 import { HomeComponent } from './home/home.component';
 
-// Product
-import { ProductsComponent } from './products/products.component';
-import { RawListComponent } from './products/raw-list/raw-list.component';
-import { ProductListComponent } from './products/product-list/product-list.component';
-import { ProductComponent } from './products/product/product.component';
-
-// User
-import { UserComponent } from './user/user.component';
+// Routes
+import { routes as productsRoutes } from './products/products.routes';
+import { routes as userRoutes } from './user/user.routes';
 
 // Guards
 import { AuthGuard } from '../shared/guards/auth.guard';
@@ -29,33 +24,8 @@ const routes: Routes = [
         component: HomeComponent,
         pathMatch: 'full'
       },
-      {
-        path: 'products',
-        component: ProductsComponent,
-        children: [
-          {
-            path: '',
-            component: ProductListComponent,
-            pathMatch: 'full'
-          },
-          {
-            path: 'raw',
-            component: RawListComponent
-          },
-          {
-            path: 'new',
-            component: ProductComponent
-          },
-          {
-            path: ':productId',
-            component: ProductComponent
-          },
-        ]
-      },
-      {
-        path: 'users',
-        component: UserComponent
-      },
+      ...productsRoutes,
+      ...userRoutes,
       {
         path: '**',
         redirectTo: '/login',
