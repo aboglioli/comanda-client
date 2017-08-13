@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ConnectionBackend, RequestOptions, Request, RequestOptionsArgs, Response, Http, Headers, XHRBackend } from "@angular/http";
 import { Observable } from "rxjs/Observable";
+import { NotificationsService } from 'angular2-notifications';
 
 import { environment } from '../../../environments/environment';
 import { CacheService } from './cache.service';
@@ -13,7 +14,7 @@ export class HttpService extends Http {
               defaultOptions: RequestOptions,
               private cache: CacheService,
               private loadingService: LoadingService,
-              private notificationService: NotificationService) {
+              private notification: NotificationsService) {
     super(backend, defaultOptions);
   }
 
@@ -94,9 +95,9 @@ export class HttpService extends Http {
     console.log(error);
 
     if(error.json().message === 'Invalid credentials') {
-      this.notificationService.notify('Credenciales inválidas', 'warning');
+      this.notification.warn('Error', 'Credenciales inválidas');
     } else {
-      this.notificationService.notify('Error en el servidor', 'danger');
+      this.notification.error('Error', 'En el servidor');
     }
 
     this.afterRequest();

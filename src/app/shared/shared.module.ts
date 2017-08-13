@@ -3,6 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 import { CommonModule } from '@angular/common';
+import { NotificationsService } from 'angular2-notifications';
 
 import {
   HttpService,
@@ -20,9 +21,14 @@ import { ProgressBarComponent } from './core/progress-bar/progress-bar.component
 import { NotificationComponent } from './core/notification/notification.component';
 import { SearchInputComponent } from './core/search-input/search-input.component';
 
-export function httpServiceFactory(xhrBackend: XHRBackend, requestOptions: RequestOptions,
-                                   cacheService: CacheService, loadingService: LoadingService, notificationService: NotificationService) {
-  return new HttpService(xhrBackend, requestOptions, cacheService, loadingService, notificationService);
+export function httpServiceFactory(
+  xhrBackend: XHRBackend,
+  requestOptions: RequestOptions,
+  cacheService: CacheService,
+  loadingService: LoadingService,
+  notificationsService: NotificationsService
+) {
+  return new HttpService(xhrBackend, requestOptions, cacheService, loadingService, notificationsService);
 }
 
 @NgModule({

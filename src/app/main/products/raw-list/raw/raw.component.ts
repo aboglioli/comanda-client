@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
+import { NotificationsService } from 'angular2-notifications';
 
-import { ProductService, NotificationService } from '../../../../shared/services';
+import { ProductService } from '../../../../shared/services';
 import { Product } from '../../../../models';
 import { config } from '../../../../config';
 
@@ -38,8 +39,8 @@ raws: Product[];
     }
   };
 
-  constructor(private productService: ProductService,
-              private notificationService: NotificationService) { }
+  constructor(private notification: NotificationsService,
+              private productService: ProductService) { }
 
   ngOnInit() {
     // Settings

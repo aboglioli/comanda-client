@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import './operators';
 
@@ -23,6 +25,10 @@ import { effects } from './effects';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    SimpleNotificationsModule.forRoot(),
+
+    // App modules
     AppRoutingModule,
     SharedModule.forRoot(),
     MainModule,
