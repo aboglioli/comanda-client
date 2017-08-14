@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import * as _ from 'lodash';
+import { NotificationsService } from 'angular2-notifications';
 
 import { User } from '../../models';
-import { NotificationService } from './notification.service';
 
 @Injectable()
 export class UserService {
 
   constructor(private http: Http,
-              private notificationService: NotificationService) { }
+              private notification: NotificationsService) { }
 
   get(): Observable<User[]> {
     return this.http.get('/users')
@@ -25,19 +25,19 @@ export class UserService {
   post(user: User): Observable<User> {
     return this.http.post('/users', JSON.stringify(user))
       .map(res => <User>res.json())
-      .do(() => this.notificationService.notify('Usuario creado'));
+      .do(() => this.notification.success('Usuario', 'Creado exitosamente'));
   }
 
   put(userId: string, user: User): Observable<User> {
     return this.http.put('/users/' + userId, JSON.stringify(user))
       .map(res => <User>res.json())
-      .do(() => this.notificationService.notify('Usuario modificado'));
+      .do(() => this.notification.success('Usuario', 'Modificado exitosamente'));
   }
 
   delete(userId: string): Observable<User> {
     return this.http.delete('/users/' + userId)
       .map(res => <User>res.json())
-      .do(() => this.notificationService.notify('Usuario eliminado'));
+      .do(() => this.notification.success('Usuario', 'Eliminado existosametne'));
   }
 
   getMe(): Observable<User> {
@@ -48,7 +48,7 @@ export class UserService {
   putMe(user: User): Observable<User> {
     return this.http.put('/users/me', JSON.stringify(user))
       .map(res => <User>res.json())
-      .do(() => this.notificationService.notify('Usuario modificado'));
+      .do(() => this.notification.success('Usuario', 'Modificado exitosamente'));
   }
 
 }

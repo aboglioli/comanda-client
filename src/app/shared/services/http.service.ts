@@ -6,7 +6,6 @@ import { NotificationsService } from 'angular2-notifications';
 import { environment } from '../../../environments/environment';
 import { CacheService } from './cache.service';
 import { LoadingService } from './loading.service';
-import { NotificationService } from './notification.service';
 
 @Injectable()
 export class HttpService extends Http {
@@ -97,7 +96,7 @@ export class HttpService extends Http {
     if(error.json().message === 'Invalid credentials') {
       this.notification.warn('Error', 'Credenciales inválidas');
     } else {
-      this.notification.error('Error', 'En el servidor');
+      this.notification.error('Error', 'Problemas con el servidor');
     }
 
     this.afterRequest();

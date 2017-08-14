@@ -11,14 +11,12 @@ import {
   LoadingService,
   AccountService,
   UserService,
-  NotificationService,
   ProductService
 } from './services';
 import { AuthGuard } from './guards/auth.guard';
 import { NavbarComponent } from './core/navbar/navbar.component';
 import { SidebarComponent } from './core/sidebar/sidebar.component';
 import { ProgressBarComponent } from './core/progress-bar/progress-bar.component';
-import { NotificationComponent } from './core/notification/notification.component';
 import { SearchInputComponent } from './core/search-input/search-input.component';
 
 export function httpServiceFactory(
@@ -42,16 +40,17 @@ export function httpServiceFactory(
     NavbarComponent,
     SidebarComponent,
     ProgressBarComponent,
-    NotificationComponent,
     SearchInputComponent
   ],
   exports: [
+    // common modules
     RouterModule,
     ReactiveFormsModule,
+
+    // common ui elements
     NavbarComponent,
     SidebarComponent,
     ProgressBarComponent,
-    NotificationComponent,
     SearchInputComponent
   ]
 })
@@ -64,10 +63,9 @@ export class SharedModule {
         {
           provide: Http,
           useFactory: httpServiceFactory,
-          deps: [XHRBackend, RequestOptions, CacheService, LoadingService, NotificationService]
+          deps: [XHRBackend, RequestOptions, CacheService, LoadingService, NotificationsService]
         },
         LoadingService,
-        NotificationService,
         CacheService,
         AccountService,
         UserService,

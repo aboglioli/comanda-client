@@ -7,7 +7,6 @@ import { ProductService } from '../../../../shared/services';
 import { SearchProductEditorComponent } from '../search-product-editor/search-product-editor.component';
 import { SearchProductRenderComponent } from '../search-product-render/search-product-render.component';
 import { Subproduct, Product } from '../../../../models';
-import { NotificationService } from '../../../../shared/services';
 import { config } from '../../../../config';
 import { checkProperties } from '../../../../utils';
 
@@ -53,7 +52,7 @@ export class SubproductsComponent implements OnInit, OnChanges {
 
   private subscription: Subscription;
 
-  constructor(private notificationService: NotificationService) { }
+  constructor() { }
 
   ngOnInit() {
     // Settings
@@ -127,16 +126,16 @@ export class SubproductsComponent implements OnInit, OnChanges {
       text: 'unidad'
     }]);
 
-    if(propsNotPresent && propsNotPresent.length > 0) {
-      this.notificationService.notify('Se requere ' + propsNotPresent.join(', '), 'danger');
-      return false;
-    }
+    // if(propsNotPresent && propsNotPresent.length > 0) {
+    //   this.notificationService.notify('Se requere ' + propsNotPresent.join(', '), 'danger');
+    //   return false;
+    // }
 
-    // Product cannot reference itself as subproduct
-    if(data.product._id === this.product._id) {
-      this.notificationService.notify('El producto no puede tenerse a sí mismo como subproducto', 'danger');
-      return false;
-    }
+    // // Product cannot reference itself as subproduct
+    // if(data.product._id === this.product._id) {
+    //   this.notificationService.notify('El producto no puede tenerse a sí mismo como subproducto', 'danger');
+    //   return false;
+    // }
 
     return true;
   }

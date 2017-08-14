@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
+import { NotificationsService } from 'angular2-notifications';
 
-import { UserService, NotificationService } from '../../shared/services';
+import { UserService } from '../../shared/services';
 import { User } from '../../models';
 import { config } from '../../config';
 import { removeEmptyProperties } from '../../utils';
@@ -43,7 +44,7 @@ export class UserComponent implements OnInit {
   };
 
   constructor(private userService: UserService,
-              private notificationService: NotificationService) { }
+              private notification: NotificationsService) { }
 
   ngOnInit() {
     this.userService.get().subscribe(users => {
@@ -67,14 +68,14 @@ export class UserComponent implements OnInit {
     }
 
     if(required.length > 0) {
-      return this.notificationService.notify('Se require ' + required.join(', '), 'danger');
+      return this.notification.error('Error', 'Se require ' + required.join(', '));
     }
 
     if(user.email) {
       const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
       if(!emailRegex.test(user.email)) {
-        return this.notificationService.notify('Email inválido', 'danger');
+        return this.notification.error('Error', 'Email inválido');
       }
     }
 
@@ -96,14 +97,14 @@ export class UserComponent implements OnInit {
     }
 
     if(required.length > 0) {
-      return this.notificationService.notify('Se require ' + required.join(', '), 'danger');
+      return this.notification.error('Error', 'Se require ' + required.join(', '));
     }
 
     if(user.email) {
       const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
       if(!emailRegex.test(user.email)) {
-        return this.notificationService.notify('Email inválido', 'danger');
+        return this.notification.error('Email inválido');
       }
     }
 

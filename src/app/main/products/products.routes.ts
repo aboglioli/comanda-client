@@ -1,27 +1,22 @@
 import { Routes } from '@angular/router';
 
-// RawList
+// raw
 import { RawListComponent } from './raw-list/raw-list.component';
-import { RawComponent } from './raw-list/raw/raw.component';
-import { DisposableComponent } from './raw-list/disposable/disposable.component';
-import { PaperComponent } from './raw-list/paper/paper.component';
+import { RawComponent } from './raw-list/raw.component';
+import { DisposableComponent } from './raw-list/disposable.component';
+import { PaperComponent } from './raw-list/paper.component';
 
-// IntermediateList
+// intermediate
 
-// FinalList
+// final
 
-import { ProductListComponent } from './product-list/product-list.component';
-
+// detail or new
 import { ProductComponent } from './product/product.component';
 
 export const routes = [{
   path: 'products',
   children: [
-    {
-      path: '',
-      component: ProductListComponent,
-      pathMatch: 'full'
-    },
+    // raw
     {
       path: 'raw',
       component: RawListComponent,
@@ -41,6 +36,8 @@ export const routes = [{
         }
       ]
     },
+
+    // detail or new
     {
       path: 'new',
       component: ProductComponent

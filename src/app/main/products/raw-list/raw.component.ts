@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { NotificationsService } from 'angular2-notifications';
 
-import { ProductService } from '../../../../shared/services';
-import { Product } from '../../../../models';
-import { config } from '../../../../config';
+import { ProductService } from 'app/shared/services';
+import { Product } from 'app/models';
+import { config } from 'app/config';
 
 @Component({
   selector: 'app-raw',

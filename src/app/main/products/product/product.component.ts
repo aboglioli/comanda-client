@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 import { Store } from '@ngrx/store';
 
 import { Product, Subproduct } from '../../../models';
-import { ProductService, NotificationService } from '../../../shared/services';
+import { ProductService } from '../../../shared/services';
 import { removeEmptyProperties } from '../../../utils';
 import { AppState } from '../../../reducers';
 import * as product from '../../../reducers/product';
@@ -25,7 +25,6 @@ export class ProductComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
               private router: Router,
-              private notificationService: NotificationService,
               private store: Store<AppState>,
               private productService: ProductService) { }
 

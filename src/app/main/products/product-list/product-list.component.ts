@@ -62,7 +62,7 @@ export class ProductListComponent implements OnInit {
       _id: product._id,
       name: product.name,
       price: `\$ ${product.price.value.toFixed(2)} / ${product.price.quantity.value} ${product.price.quantity.unit}`,
-      type: product.type === 'single' ? 'Simple' : 'Combinación',
+      type: product.type === 'simple' ? 'Simple' : 'Combinación',
       subproducts: product.subproducts.length
     };
   }

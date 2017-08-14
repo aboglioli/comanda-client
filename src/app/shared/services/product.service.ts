@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { Http, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import * as _ from 'lodash';
+import { NotificationsService } from 'angular2-notifications';
 
 import { Product, Subproduct } from '../../models';
-import { NotificationService } from './notification.service';
 
 @Injectable()
 export class ProductService {
 
   constructor(private http: Http,
-              private notificationService: NotificationService) { }
+              private notification: NotificationsService) { }
 
   get({name, type}: {name?: string, type?: string} = {}): Observable<Product[]> {
     const search = new URLSearchParams();
@@ -40,19 +40,19 @@ export class ProductService {
   post(Product: Product): Observable<Product> {
     return this.http.post('/products', JSON.stringify(Product))
       .map(res => <Product>res.json())
-      .do(() => this.notificationService.notify('Producto creado'));
+      .do(() => this.notification.success('Product', 'Creado exitosamente'));
   }
 
   put(productId: string, Product: Product): Observable<Product> {
     return this.http.put('/products/' + productId, JSON.stringify(Product))
       .map(res => <Product>res.json())
-      .do(() => this.notificationService.notify('Producto modificado'));
+      .do(() => this.notification.success('Producto', 'Modificado exitosamente'));
   }
 
   delete(productId: string): Observable<Product> {
     return this.http.delete('/products/' + productId)
       .map(res => <Product>res.json())
-      .do(() => this.notificationService.notify('Producto eliminado'));
+      .do(() => this.notification.success('Producto', 'Eliminado exitosamente'));
   }
 
   calculatePrice(subproducts: Subproduct[]): Observable<{price: number}> {

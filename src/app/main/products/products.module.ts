@@ -3,37 +3,54 @@ import { CommonModule } from '@angular/common';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import { SharedModule } from '../../shared/shared.module';
-import { RawListModule } from './raw-list/raw-list.module';
-import { IntermediateListModule } from './intermediate-list/intermediate-list.module';
-import { FinalListModule } from './final-list/final-list.module';
 
-import { RawListComponent } from './raw-list/raw-list.component';
-import { ProductListComponent } from './product-list/product-list.component';
-
+// product detail
 import { ProductComponent } from './product/product.component';
+
+// raw products
+import { RawListComponent } from './raw-list/raw-list.component';
+import { RawComponent } from './raw-list/raw.component';
+import { DisposableComponent } from './raw-list/disposable.component';
+import { PaperComponent } from './raw-list/paper.component';
+
+// intermediate products
+import { IntermediateListComponent } from './intermediate-list/intermediate-list.component';
+
+// final products
+import { FinalListComponent } from './final-list/final-list.component';
+
+
+// common components
 import { SearchProductEditorComponent } from './product/search-product-editor/search-product-editor.component';
 import { SearchProductRenderComponent } from './product/search-product-render/search-product-render.component';
 import { SubproductsComponent } from './product/subproducts/subproducts.component';
-import { IntermediateListComponent } from './intermediate-list/intermediate-list.component';
-import { FinalListComponent } from './final-list/final-list.component';
+
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    Ng2SmartTableModule,
-    RawListModule,
-    IntermediateListModule,
-    FinalListModule
+    Ng2SmartTableModule
   ],
   declarations: [
-    ProductComponent,
-    RawListComponent,
-    ProductListComponent,
+    // common components
     SearchProductEditorComponent,
     SearchProductRenderComponent,
     SubproductsComponent,
+
+    // product detail
+    ProductComponent,
+
+    // raw products
+    RawListComponent,
+    DisposableComponent,
+    RawComponent,
+    PaperComponent,
+
+    // intermediate products
     IntermediateListComponent,
+
+    // final products
     FinalListComponent
   ],
   entryComponents: [
