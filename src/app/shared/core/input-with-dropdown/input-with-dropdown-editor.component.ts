@@ -22,7 +22,7 @@ export class InputWithDropdownEditorComponent extends DefaultEditor implements O
   ngAfterViewInit() {
     if (this.cell.newValue !== '') {
       this.selectedUnit = this.cell.newValue.unit;
-      this.selectedQuantity = this.cell.newValue.quantity;
+      this.selectedQuantity = this.cell.newValue.value;
     }
   }
 

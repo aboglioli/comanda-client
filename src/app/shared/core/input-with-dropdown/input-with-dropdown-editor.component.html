@@ -1,5 +1,5 @@
 <div class="input-group">
-  <input type="text" class="form-control" aria-label="Text input with dropdown button" (keyup)="updated()" [(ngModel)]="selectedQuantity">
+  <input type="text" class="form-control form-control-sm" aria-label="Text input with dropdown button" (keyup)="updated()" [(ngModel)]="selectedQuantity">
   <select class="form-control" [(ngModel)]="selectedUnit" (change)="updated()">
     <option *ngFor="let element of elements" [value]="element.value"> {{element.value}} </option>
   </select>

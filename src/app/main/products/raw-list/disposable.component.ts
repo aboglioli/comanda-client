@@ -29,6 +29,7 @@ disposables: Product[];
       },
       quantityunit: {
         title: 'Cantidad/Unidad',
+        type: 'custom',
         renderComponent: InputWithDropdownRenderComponent,
         editor: {
           type: 'custom',
