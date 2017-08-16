@@ -88,9 +88,9 @@ raws: Product[];
     return {
       _id: product._id,
       name: product.name,
-      price: product.price.value,
-      quantity: product.price.quantity.value,
-      unit: product.price.quantity.unit
+      price: product.price,
+      quantity: product.unit.value,
+      unit: product.unit.unit
     };
   }
 
@@ -98,12 +98,10 @@ raws: Product[];
     return {
       name: data.name,
       type: 'raw',
-      price: {
-        value: data.price,
-        quantity: {
-          value: data.quantity,
-          unit: data.unit
-        }
+      price: data.price,
+      unit: {
+        value: data.quantity,
+        unit: data.unit
       }
     };
   }

@@ -52,7 +52,7 @@ export class SearchProductEditorComponent extends DefaultEditor implements OnIni
     this.cell.newValue = product;
     this.products = null;
 
-    const selectedProductUnit = this.selectedProduct.price.quantity.unit;
+    const selectedProductUnit = this.selectedProduct.unit.unit;
 
     if(config.units.mass.find(unit => unit.unit === selectedProductUnit)) {
       this.buildUnitList(config.units.mass);

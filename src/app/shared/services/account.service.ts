@@ -1,19 +1,37 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { environment } from '../../../environments/environment';
+import { User } from '../../models';
 import { HttpService } from './http.service';
 import { CacheService } from './cache.service';
+import { UserService } from './user.service';
 
 @Injectable()
 export class AccountService {
   private authToken: string;
+  user: User;
 
   constructor(private http: Http,
+              private router: Router,
+              private userService: UserService,
               private cache: CacheService) {
     if(this.cache.has('authToken')) {
       this.authToken = this.cache.get('authToken');
+
+      this.userService.getMe().subscribe(
+        (user) => {
+          this.user = user;
+          console.log(user);
+        },
+        (err) => {
+          this.authToken = null;
+          this.cache.delete('authToken');
+          this.router.navigate(['/']);
+        }
+      );
     }
   }
 

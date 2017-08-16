@@ -1,6 +1,6 @@
 export interface Quantity {
-  value?: number;
-  unit?: string;
+  value: number;
+  unit: string;
 }
 
 export interface Price {
@@ -17,8 +17,8 @@ export interface Subproduct {
 export interface Product {
   _id?: string;
   name?: string;
-  description?: string;
+  price?: number;
+  unit?: Quantity;
   type?: string;
-  price?: Price;
   subproducts?: Subproduct[];
 }

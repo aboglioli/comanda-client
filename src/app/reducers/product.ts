@@ -9,14 +9,11 @@ export type State = Product;
 const initialState: State = {
   _id: null,
   name: '',
-  description: '',
   type: '',
-  price: {
+  price: 0,
+  unit: {
     value: 0,
-    quantity: {
-      value: 0,
-      unit: 'u'
-    }
+    unit: 'u'
   },
   subproducts: []
 };
