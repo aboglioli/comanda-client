@@ -8,15 +8,13 @@ import { ViewCell } from 'ng2-smart-table';
   styleUrls: ['./input-with-dropdown-render.component.scss']
 })
 export class InputWithDropdownRenderComponent implements ViewCell, OnInit {
-  renderValue: string;
-
-  @Input() value: string;
+  @Input() value: any;
   @Input() rowData: any;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
-    this.renderValue = this.value;
   }
 
 }

@@ -33,7 +33,7 @@ disposables: Product[];
         editor: {
           type: 'custom',
           component: InputWithDropdownEditorComponent,
-          config: {elements: {} },
+          config: {elements: [] },
         }
       }
     }
@@ -53,6 +53,7 @@ disposables: Product[];
     this.productService.get({type: 'disposable'}).subscribe(disposables => {
       this.disposables = disposables;
       this.data = disposables.map(disposable => this.desmaterializeDisposable(disposable));
+      console.log(this.data);
     });
   }
 
@@ -62,7 +63,6 @@ disposables: Product[];
     this.productService.post(disposable).subscribe(disposable => {
       event.confirm.resolve(this.desmaterializeDisposable(disposable));
     });
-    console.log(disposable);
   }
 
   onEdit(event) {
@@ -87,8 +87,10 @@ disposables: Product[];
       _id: product._id,
       name: product.name,
       price: product.price,
-      quantity: product.unit.value,
-      unit: product.unit.unit
+      quantityunit: {
+        value: product.unit.value,
+        unit: product.unit.unit
+      }
     };
   }
 
@@ -96,10 +98,10 @@ disposables: Product[];
     return {
       name: data.name,
       type: 'disposable',
-      price: data.price,
+      price: +data.price,
       unit: {
-        value: data.quantity,
-        unit: data.unit
+        value: +data.quantityunit.value,
+        unit: data.quantityunit.unit
       }
     };
   }

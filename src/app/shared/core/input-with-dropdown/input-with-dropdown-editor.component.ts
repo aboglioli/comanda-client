@@ -17,7 +17,6 @@ export class InputWithDropdownEditorComponent extends DefaultEditor implements O
 
   ngOnInit() {
     this.elements = this.cell.getColumn().getConfig().elements;
-    console.log(this.elements);
   }
 
   ngAfterViewInit() {
@@ -25,6 +24,14 @@ export class InputWithDropdownEditorComponent extends DefaultEditor implements O
       this.selectedUnit = this.cell.newValue.unit;
       this.selectedQuantity = this.cell.newValue.quantity;
     }
+  }
+
+  updated() {
+    console.log(this.selectedUnit, this.selectedQuantity);
+    this.cell.newValue = {
+      unit: this.selectedUnit,
+      value: this.selectedQuantity
+    };
   }
 
 }
