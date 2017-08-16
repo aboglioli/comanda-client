@@ -4,3 +4,4 @@ export { LoadingService }  from './loading.service';
 export { AccountService } from './account.service';
 export { UserService } from './user.service';
 export { ProductService } from './product.service';
+export { SocketService } from './socket.service';

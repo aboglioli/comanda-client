@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { NotificationsService } from 'angular2-notifications';
 
-import { ProductService } from 'app/shared/services';
+import { ProductService, SocketService } from 'app/shared/services';
 import { Product } from 'app/models';
 import { config } from 'app/config';
 
@@ -40,6 +40,7 @@ raws: Product[];
   };
 
   constructor(private notification: NotificationsService,
+              private socket: SocketService,
               private productService: ProductService) { }
 
   ngOnInit() {

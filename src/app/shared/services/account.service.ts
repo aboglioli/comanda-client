@@ -24,7 +24,6 @@ export class AccountService {
       this.userService.getMe().subscribe(
         (user) => {
           this.user = user;
-          console.log(user);
         },
         (err) => {
           this.authToken = null;

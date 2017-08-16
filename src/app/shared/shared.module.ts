@@ -11,7 +11,8 @@ import {
   LoadingService,
   AccountService,
   UserService,
-  ProductService
+  ProductService,
+  SocketService
 } from './services';
 import { AuthGuard } from './guards/auth.guard';
 import { NavbarComponent } from './core/navbar/navbar.component';
@@ -78,7 +79,8 @@ export class SharedModule {
         CacheService,
         AccountService,
         UserService,
-        ProductService
+        ProductService,
+        SocketService
       ]
     };
   }
