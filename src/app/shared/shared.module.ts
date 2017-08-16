@@ -1,5 +1,5 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 import { CommonModule } from '@angular/common';
@@ -37,6 +37,7 @@ export function httpServiceFactory(
     RouterModule,
     HttpModule,
     ReactiveFormsModule,
+    FormsModule
   ],
   declarations: [
     NavbarComponent,

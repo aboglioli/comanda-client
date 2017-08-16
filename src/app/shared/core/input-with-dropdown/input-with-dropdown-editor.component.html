@@ -1,6 +1,6 @@
 <div class="input-group">
-  <input type="text" class="form-control" aria-label="Text input with dropdown button">
-    <select class="form-control">
-      <option *ngFor="let element of elements"> {{element.value}} </option>
-    </select>
+  <input type="text" class="form-control" aria-label="Text input with dropdown button" [(ngModel)]="selectedQuantity">
+  <select class="form-control" [(ngModel)]="selectedUnit">
+    <option *ngFor="let element of elements" [value]="element.value"> {{element.value}} </option>
+  </select>
 </div>

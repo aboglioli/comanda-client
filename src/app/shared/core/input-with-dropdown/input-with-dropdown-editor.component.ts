@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Cell, DefaultEditor, Editor } from 'ng2-smart-table';
 
 @Component({
@@ -6,8 +6,10 @@ import { Cell, DefaultEditor, Editor } from 'ng2-smart-table';
   templateUrl: './input-with-dropdown-editor.component.html',
   styleUrls: ['./input-with-dropdown-editor.component.scss']
 })
-export class InputWithDropdownEditorComponent extends DefaultEditor implements OnInit {
+export class InputWithDropdownEditorComponent extends DefaultEditor implements OnInit, AfterViewInit {
   elements: any[];
+  selectedUnit: String;
+  selectedQuantity: String;
 
   constructor() {
     super();
@@ -16,6 +18,13 @@ export class InputWithDropdownEditorComponent extends DefaultEditor implements O
   ngOnInit() {
     this.elements = this.cell.getColumn().getConfig().elements;
     console.log(this.elements);
+  }
+
+  ngAfterViewInit() {
+    if (this.cell.newValue !== '') {
+      this.selectedUnit = this.cell.newValue.unit;
+      this.selectedQuantity = this.cell.newValue.quantity;
+    }
   }
 
 }

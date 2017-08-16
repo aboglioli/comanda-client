@@ -17,7 +17,6 @@ import { config } from 'app/config';
 })
 export class DisposableComponent implements OnInit {
 disposables: Product[];
-elements: any[];
 
   data: any[];
   settings = {
@@ -28,16 +27,13 @@ elements: any[];
       price: {
         title: 'Precio'
       },
-      quantity: {
-        title: 'Cantidad'
-      },
-      unit: {
-        title: 'Unidad',
+      quantityunit: {
+        title: 'Cantidad/Unidad',
         renderComponent: InputWithDropdownRenderComponent,
         editor: {
           type: 'custom',
           component: InputWithDropdownEditorComponent,
-          config: { elements: this.elements },
+          config: {elements: {} },
         }
       }
     }
@@ -49,11 +45,10 @@ elements: any[];
     // Settings
     this.settings = _.assign(this.settings, config.ng2SmartTableDefaultSettings);
 
-    this.elements = [...config.units.length, config.units.unit]
+    this.settings.columns.quantityunit.editor.config.elements = [...config.units.length, config.units.unit]
       .map(unit => {
         return {title: unit.unit, value: unit.unit};
       });
-    console.log(this.elements);
     // Data
     this.productService.get({type: 'disposable'}).subscribe(disposables => {
       this.disposables = disposables;
