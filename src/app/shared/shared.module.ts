@@ -18,6 +18,8 @@ import { NavbarComponent } from './core/navbar/navbar.component';
 import { SidebarComponent } from './core/sidebar/sidebar.component';
 import { ProgressBarComponent } from './core/progress-bar/progress-bar.component';
 import { SearchInputComponent } from './core/search-input/search-input.component';
+import { InputWithDropdownEditorComponent } from './core/input-with-dropdown/input-with-dropdown-editor.component';
+import { InputWithDropdownRenderComponent } from './core/input-with-dropdown/input-with-dropdown-render.component';
 
 export function httpServiceFactory(
   xhrBackend: XHRBackend,
@@ -40,7 +42,13 @@ export function httpServiceFactory(
     NavbarComponent,
     SidebarComponent,
     ProgressBarComponent,
-    SearchInputComponent
+    SearchInputComponent,
+    InputWithDropdownEditorComponent,
+    InputWithDropdownRenderComponent
+  ],
+  entryComponents: [
+    InputWithDropdownEditorComponent,
+    InputWithDropdownRenderComponent
   ],
   exports: [
     // common modules

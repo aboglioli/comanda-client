@@ -93,6 +93,20 @@ export const config = {
         multiplier: 1000
       }
     ],
-    unit: {unit: "u"}
+    unit: {unit: "u"},
+    length: [
+      {
+        unit: "mm",
+        multiplier: 0.001
+      },
+      {
+        unit: "cm",
+        multiplier: 0.01
+      },
+      {
+        unit: "m",
+        multiplier: 1
+      }
+    ]
   }
 };

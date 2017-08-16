@@ -1,3 +1,13 @@
-<p>
-  disposable works!
-</p>
+<h4 class="p-3">Descartables</h4>
+
+<div class="card">
+  <div class="card-block p-0">
+    <div class="overflow">
+      <ng2-smart-table [settings]="settings"
+                      [source]="data"
+                      (createConfirm)="onCreate($event)"
+                      (editConfirm)="onEdit($event)"
+                      (deleteConfirm)="onDelete($event)">
+      </ng2-smart-table>
+    </div>
+  </div>
