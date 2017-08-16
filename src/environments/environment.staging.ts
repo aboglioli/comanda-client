@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
   envName: 'staging',
-  baseUrl: 'https://sushibox-server.herokuapp.com/api/v1'
+  baseUrl: 'http://192.168.1.146:3000/api/v1'
 };
