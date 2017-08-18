@@ -1,25 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject} from 'rxjs';
 
-import * as io from 'socket.io-client';
+import * as Nes from 'nes';
 
 @Injectable()
 export class SocketService {
   private url = 'http://localhost:3000';
-  private socket;
+  private client;
 
   constructor() {
-    this.socket = io(this.url);
+    this.client = new Nes.Client('ws://localhost:3000');
 
-    console.log('CONNECTED');
-
-    this.socket.on('hola', (data) => {
-      console.log('hola > ', data);
-
-      this.socket.emit('chau', {content: 'chau'})
+    this.client.connect((err) => {
+      console.log('CONNECTED');
+      this.client.subscribe(
+        '/hello',
+        (update, flags) => {
+          console.log(update);
+        },
+        (err) => { }
+      );
     });
-
-    console.log('SET');
   }
 
 }
