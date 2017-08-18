@@ -9,15 +9,17 @@ export class SocketService {
   private socket;
 
   constructor() {
-    console.log('SOCKET.IO');
     this.socket = io(this.url);
+
     console.log('CONNECTED');
 
-    this.socket.on('pong', () => {
-      console.log('PONG');
+    this.socket.on('hola', (data) => {
+      console.log('hola > ', data);
+
+      this.socket.emit('chau', {content: 'chau'})
     });
 
-    this.socket.emit('ping');
+    console.log('SET');
   }
 
 }

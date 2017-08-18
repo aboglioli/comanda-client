@@ -22,6 +22,8 @@
 
   @include media-breakpoint-down(md) {
     top: 0px;
+    // TODO: toggle disebar instead of not displayin it
+    display: none;
   }
 
   .nav {
