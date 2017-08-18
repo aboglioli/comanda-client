@@ -28,7 +28,7 @@ export class AccountService {
         (err) => {
           this.authToken = null;
           this.cache.delete('authToken');
-          this.router.navigate(['/']);
+          this.router.navigate(['/login']);
         }
       );
     }
