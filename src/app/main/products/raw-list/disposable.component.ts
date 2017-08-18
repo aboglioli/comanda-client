@@ -12,8 +12,7 @@ import { config } from 'app/config';
 
 @Component({
   selector: 'app-disposable',
-  templateUrl: './disposable.component.html',
-  styleUrls: ['./disposable.component.scss']
+  templateUrl: './disposable.component.html'
 })
 export class DisposableComponent implements OnInit {
 disposables: Product[];

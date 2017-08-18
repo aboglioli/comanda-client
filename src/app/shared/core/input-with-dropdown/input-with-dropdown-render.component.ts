@@ -4,8 +4,7 @@ import { ViewCell } from 'ng2-smart-table';
 
 @Component({
   selector: 'app-input-with-dropdown-render',
-  templateUrl: './input-with-dropdown-render.component.html',
-  styleUrls: ['./input-with-dropdown-render.component.scss']
+  templateUrl: './input-with-dropdown-render.component.html'
 })
 export class InputWithDropdownRenderComponent implements ViewCell, OnInit {
   @Input() value: any;

@@ -8,8 +8,7 @@ import { config } from '../../../config';
 
 @Component({
   selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.scss']
+  templateUrl: './product-list.component.html'
 })
 export class ProductListComponent implements OnInit {
   products: Product[];

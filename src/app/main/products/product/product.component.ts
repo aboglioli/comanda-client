@@ -13,8 +13,7 @@ import * as product from '../../../reducers/product';
 
 @Component({
   selector: 'app-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss']
+  templateUrl: './product.component.html'
 })
 export class ProductComponent implements OnInit {
   product: Observable<Product>;

@@ -8,8 +8,7 @@ import { config } from 'app/config';
 
 @Component({
   selector: 'app-raw',
-  templateUrl: './raw.component.html',
-  styleUrls: ['./raw.component.scss']
+  templateUrl: './raw.component.html'
 })
 export class RawComponent implements OnInit {
 raws: Product[];

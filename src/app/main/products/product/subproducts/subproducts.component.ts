@@ -12,8 +12,7 @@ import { checkProperties } from '../../../../utils';
 
 @Component({
   selector: 'app-subproducts',
-  templateUrl: './subproducts.component.html',
-  styleUrls: ['./subproducts.component.scss']
+  templateUrl: './subproducts.component.html'
 })
 export class SubproductsComponent implements OnInit, OnChanges {
   @Input() product: Product;

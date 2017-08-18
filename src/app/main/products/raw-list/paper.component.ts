@@ -8,8 +8,7 @@ import { config } from 'app/config';
 
 @Component({
   selector: 'app-paper',
-  templateUrl: './paper.component.html',
-  styleUrls: ['./paper.component.scss']
+  templateUrl: './paper.component.html'
 })
 export class PaperComponent implements OnInit {
 

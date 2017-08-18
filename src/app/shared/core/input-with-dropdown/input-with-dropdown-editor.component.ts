@@ -3,8 +3,7 @@ import { Cell, DefaultEditor, Editor } from 'ng2-smart-table';
 
 @Component({
   selector: 'app-input-with-dropdown-editor',
-  templateUrl: './input-with-dropdown-editor.component.html',
-  styleUrls: ['./input-with-dropdown-editor.component.scss']
+  templateUrl: './input-with-dropdown-editor.component.html'
 })
 export class InputWithDropdownEditorComponent extends DefaultEditor implements OnInit, AfterViewInit {
   elements: any[];
